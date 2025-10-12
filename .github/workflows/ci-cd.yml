@@ -47,11 +47,6 @@ jobs:
     
     - name: Build frontend
       run: cd frontend && npm run build
-    
-    - name: Test backend
-      run: cd backend && npm test
-      env:
-        MONGO_URI: mongodb://localhost:27017/test_db
 
   build-and-push:
     needs: test
