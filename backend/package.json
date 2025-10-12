@@ -4,6 +4,7 @@
   "description": "Backend for Aigull Art project",
   "main": "dist/server.js",
   "scripts": {
+    "build": "tsc",
     "start": "npm run build && node dist/server.js",
     "dev": "nodemon src/server.ts"
   },
