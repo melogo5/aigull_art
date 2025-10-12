@@ -5,7 +5,12 @@
 # Показать помощь
 help:
 	@echo "Доступные команды:"
-	@echo "  dev        - Запустить в режиме разработки"
+	@echo "  dev        - Запустить в режиме разработки с пересборкой"
+	@echo "  dev-watch  - Запустить в режиме разработки с watch (рекомендуется)"
+	@echo "  dev-up     - Запустить в режиме разработки без пересборки"
+	@echo "  dev-down   - Остановить контейнеры разработки"
+	@echo "  dev-logs   - Показать логи разработки"
+	@echo "  dev-restart- Перезапустить контейнеры разработки"
 	@echo "  prod       - Запустить в продакшен режиме"
 	@echo "  build      - Собрать Docker образы"
 	@echo "  up         - Запустить контейнеры"
@@ -18,11 +23,20 @@ help:
 dev:
 	docker-compose -f docker-compose.dev.yml up --build
 
+dev-watch:
+	docker-compose -f docker-compose.dev.yml watch
+
+dev-up:
+	docker-compose -f docker-compose.dev.yml up
+
 dev-down:
 	docker-compose -f docker-compose.dev.yml down
 
 dev-logs:
 	docker-compose -f docker-compose.dev.yml logs -f
+
+dev-restart:
+	docker-compose -f docker-compose.dev.yml restart
 
 # Продакшен режим
 prod:

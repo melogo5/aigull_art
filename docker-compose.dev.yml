@@ -27,15 +27,27 @@ services:
       JWT_SECRET: dev-secret-key
       JWT_EXPIRE: 7d
       CORS_ORIGIN: http://localhost:3000
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true
     ports:
       - "5000:5000"
     volumes:
       - ./backend/src:/app/src
       - ./backend/package.json:/app/package.json
+      - ./backend/package-lock.json:/app/package-lock.json
+      - ./backend/tsconfig.json:/app/tsconfig.json
+      - ./backend/nodemon.json:/app/nodemon.json
     depends_on:
       - mongodb
     networks:
       - aigull-dev-network
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/src
+          target: /app/src
+        - action: rebuild
+          path: ./backend/package.json
 
   # Frontend для разработки (с hot reload)
   frontend:
@@ -46,15 +58,32 @@ services:
     restart: unless-stopped
     environment:
       VITE_API_URL: http://localhost:5000/api
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true
     ports:
       - "3000:3000"
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/package.json:/app/package.json
+      - ./frontend/package-lock.json:/app/package-lock.json
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+      - ./frontend/tsconfig.node.json:/app/tsconfig.node.json
+      - ./frontend/index.html:/app/index.html
     depends_on:
       - backend
     networks:
       - aigull-dev-network
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/src
+          target: /app/src
+        - action: rebuild
+          path: ./frontend/package.json
+        - action: sync
+          path: ./frontend/index.html
+          target: /app/index.html
 
 volumes:
   mongodb_dev_data:
