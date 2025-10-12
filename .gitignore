@@ -10,6 +10,10 @@ yarn-error.log*
 /frontend/build
 /backend/dist
 
+# Docker
+.docker/
+docker-compose.override.yml
+
 # Environment variables
 .env
 .env.local
