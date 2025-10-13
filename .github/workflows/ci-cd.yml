@@ -118,7 +118,9 @@ jobs:
         username: ${{ secrets.VPS_USERNAME }}
         key: ${{ secrets.VPS_SSH_KEY }}
         script: |
-          cd /path/to/your/app
+          cd ~/aigull_art
+          # Update CORS_ORIGIN with VPS IP from secrets
+          sed -i 's|CORS_ORIGIN: http://YOUR_VPS_IP|CORS_ORIGIN: http://${{ secrets.VPS_HOST }}|g' docker-compose.prod.yml
           # Pull the latest images
           docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-backend:latest
           docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:latest

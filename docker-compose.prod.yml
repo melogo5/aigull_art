@@ -27,7 +27,7 @@ services:
       MONGO_URI: mongodb://admin:password123@mongodb:27017/aigull_art?authSource=admin
       JWT_SECRET: your-super-secret-jwt-key-for-production
       JWT_EXPIRE: 7d
-      CORS_ORIGIN: http://localhost
+      CORS_ORIGIN: http://YOUR_VPS_IP
     ports:
       - "5000:5000"
     depends_on:
