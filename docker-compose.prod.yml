@@ -37,8 +37,6 @@ services:
 
   # Frontend
   frontend:
-    environment:
-      VITE_API_URL: http://localhost:5000/api
     image: ghcr.io/melogo5/aigull_art-frontend:latest
     container_name: aigull-art-frontend
     restart: unless-stopped

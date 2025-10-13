@@ -96,6 +96,7 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
+        build-args: VITE_API_URL=http://${{ secrets.VPS_HOST }}:5000/api
         tags: |
           ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:${{ github.ref_name }}-${{ github.sha }}
           ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:latest

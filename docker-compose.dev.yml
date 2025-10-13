@@ -57,7 +57,6 @@ services:
     container_name: aigull-art-frontend-dev
     restart: unless-stopped
     environment:
-      VITE_API_URL: http://localhost:5000/api
       CHOKIDAR_USEPOLLING: true
       WATCHPACK_POLLING: true
     ports:
