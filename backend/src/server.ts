@@ -8,7 +8,7 @@ const startServer = async (): Promise<void> => {
     await connectDB();
 
     // Start server
-    const server = app.listen(config.port, () => {
+    const server = app.listen(Number(config.port), '0.0.0.0', () => {
       console.log(`Server running in ${config.nodeEnv} mode on port ${config.port}`);
     });
 
