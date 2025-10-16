@@ -4,6 +4,7 @@ import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
 import { RegisterPage } from '@/pages/RegisterPage';
 import { ProfilePage } from '@/pages/ProfilePage';
+import { ExhibitionsPage } from '@/pages/ExhibitionsPage';
 import { Header } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 
@@ -18,6 +19,7 @@ const Routing: React.FC = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/exhibitions" element={<ExhibitionsPage />} />
           </Routes>
         </main>
         <Footer />
