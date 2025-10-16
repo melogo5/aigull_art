@@ -79,6 +79,14 @@ body {
   background-color: var(--color-primary-hover);
 }
 
+.btn-accent {
+  background-color: var(--color-accent);
+}
+
+.btn-accent:hover {
+  background-color: #7c0217; /* slightly darker than accent */
+}
+
 .btn-secondary {
   background-color: #6c757d;
 }

@@ -13,6 +13,8 @@
     "axios": "^1.6.2",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",
+    "antd": "^5.20.0",
+    "@ant-design/icons": "^5.3.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-jss": "^10.10.0",
