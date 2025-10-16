@@ -120,8 +120,17 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         script: |
           cd ~/aigull_art
-          # Pull latest changes from repository
-          git pull origin master
+          # Ensure up-to-date repo state: fetch, hard reset to origin/master, clean untracked
+          if [ -d .git ]; then
+            git fetch --all --prune
+            git reset --hard origin/master
+            git clean -fd
+          else
+            # Fresh clone if directory exists without git metadata
+            rm -rf ~/aigull_art
+            git clone https://github.com/${{ github.repository }} ~/aigull_art
+            cd ~/aigull_art
+          fi
           # Update CORS_ORIGIN with VPS IP from secrets
           sed -i 's|CORS_ORIGIN: http://YOUR_VPS_IP|CORS_ORIGIN: http://${{ secrets.VPS_HOST }}|g' docker-compose.prod.yml
           # Pull the latest images
