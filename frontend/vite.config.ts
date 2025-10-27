@@ -26,7 +26,11 @@ export default defineConfig({
             console.log('Sending Request to the Target:', req.method, req.url);
           });
           proxy.on('proxyRes', (proxyRes, req, _res) => {
-            console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
+            console.log(
+              'Received Response from the Target:',
+              proxyRes.statusCode,
+              req.url
+            );
           });
         },
       },
@@ -39,10 +43,18 @@ export default defineConfig({
             console.log('uploads proxy error', err);
           });
           proxy.on('proxyReq', (proxyReq, req, _res) => {
-            console.log('Sending uploads Request to the Target:', req.method, req.url);
+            console.log(
+              'Sending uploads Request to the Target:',
+              req.method,
+              req.url
+            );
           });
           proxy.on('proxyRes', (proxyRes, req, _res) => {
-            console.log('Received uploads Response from the Target:', proxyRes.statusCode, req.url);
+            console.log(
+              'Received uploads Response from the Target:',
+              proxyRes.statusCode,
+              req.url
+            );
           });
         },
       },

@@ -6,7 +6,9 @@ export const pictureController = {
   getPictures: async (req: Request, res: Response): Promise<void> => {
     try {
       const pictures = await PictureService.listPictures(req.query as any);
-      res.status(200).json({ success: true, count: pictures.length, data: pictures });
+      res
+        .status(200)
+        .json({ success: true, count: pictures.length, data: pictures });
     } catch (error) {
       res.status(500).json({ success: false, message: 'Server error' });
     }
@@ -15,10 +17,21 @@ export const pictureController = {
   // POST /api/pictures/addPicture
   addPicture: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { name, description, year, available, width, height, material, imgUrl } = req.body;
+      const {
+        name,
+        description,
+        year,
+        available,
+        width,
+        height,
+        material,
+        imgUrl,
+      } = req.body;
 
       if (!name || !year || !width || !height || !material) {
-        res.status(400).json({ success: false, message: 'Missing required fields' });
+        res
+          .status(400)
+          .json({ success: false, message: 'Missing required fields' });
         return;
       }
 
@@ -35,7 +48,13 @@ export const pictureController = {
 
       res.status(201).json({ success: true, data: picture });
     } catch (error) {
-      res.status(400).json({ success: false, message: error instanceof Error ? error.message : 'Failed to add picture' });
+      res
+        .status(400)
+        .json({
+          success: false,
+          message:
+            error instanceof Error ? error.message : 'Failed to add picture',
+        });
     }
   },
 
@@ -48,7 +67,9 @@ export const pictureController = {
         res.status(404).json({ success: false, message: 'Picture not found' });
         return;
       }
-      res.status(200).json({ success: true, message: 'Picture deleted successfully' });
+      res
+        .status(200)
+        .json({ success: true, message: 'Picture deleted successfully' });
     } catch (error) {
       res.status(500).json({ success: false, message: 'Server error' });
     }
@@ -65,9 +86,13 @@ export const pictureController = {
       }
       res.status(200).json({ success: true, data: updated });
     } catch (error) {
-      res.status(400).json({ success: false, message: error instanceof Error ? error.message : 'Failed to edit picture' });
+      res
+        .status(400)
+        .json({
+          success: false,
+          message:
+            error instanceof Error ? error.message : 'Failed to edit picture',
+        });
     }
   },
 };
-
-

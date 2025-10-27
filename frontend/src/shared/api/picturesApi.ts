@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({ baseURL: `${API_BASE_URL}/pictures` });
 
@@ -26,13 +27,17 @@ export const picturesApi = {
   async uploadImage(file: File): Promise<string> {
     const form = new FormData();
     form.append('image', file);
-    const { data } = await api.post('/upload', form, { headers: { 'Content-Type': 'multipart/form-data' } });
+    const { data } = await api.post('/upload', form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return data.fileUrl as string;
   },
-  async create(payload: Omit<Picture, '_id' | 'createdAt' | 'updatedAt'>): Promise<Picture> {
-    const { data } = await api.post('/addPicture', payload, { headers: { 'Content-Type': 'application/json' } });
+  async create(
+    payload: Omit<Picture, '_id' | 'createdAt' | 'updatedAt'>
+  ): Promise<Picture> {
+    const { data } = await api.post('/addPicture', payload, {
+      headers: { 'Content-Type': 'application/json' },
+    });
     return data.data as Picture;
   },
 };
-
-

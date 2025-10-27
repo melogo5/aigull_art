@@ -10,6 +10,7 @@
 ## 🚀 Технологический стек
 
 ### Frontend
+
 - React 18
 - TypeScript
 - Vite (современный сборщик)
@@ -18,6 +19,7 @@
 - Архитектура FSD (Feature-Sliced Design)
 
 ### Backend
+
 - Node.js
 - Express.js
 - TypeScript
@@ -50,7 +52,9 @@
 │   └── package.json
 └── README.md
 ```
+
 Тестируем деплой на стенд
+
 ## 🐳 Быстрый старт с Docker
 
 Проект настроен для автоматического отслеживания изменений файлов:
@@ -60,10 +64,12 @@
 - **Конфигурационные файлы**: Автоматическая пересборка при изменении `package.json`
 
 **Переменные окружения для watch mode:**
+
 - `CHOKIDAR_USEPOLLING=true` - Включает polling для файловых событий
 - `WATCHPACK_POLLING=true` - Включает polling для Webpack/Vite
 
 #### Продакшн режим
+
 ```bash
 # Собрать и запустить продакшен версию
 npm run docker:build

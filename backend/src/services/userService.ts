@@ -32,7 +32,10 @@ export class UserService {
     return user;
   }
 
-  static async authenticateUser(email: string, password: string): Promise<string> {
+  static async authenticateUser(
+    email: string,
+    password: string
+  ): Promise<string> {
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
@@ -53,7 +56,6 @@ export class UserService {
     return jwt.sign(payload, config.jwtSecret, { expiresIn: '7d' });
   }
 
-
   static async getAllUsers(): Promise<IUser[]> {
     return await User.find().select('-password');
   }
@@ -62,7 +64,10 @@ export class UserService {
     return await User.findById(id).select('-password');
   }
 
-  static async updateUser(id: string, updateData: Partial<IUser>): Promise<IUser | null> {
+  static async updateUser(
+    id: string,
+    updateData: Partial<IUser>
+  ): Promise<IUser | null> {
     return await User.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,

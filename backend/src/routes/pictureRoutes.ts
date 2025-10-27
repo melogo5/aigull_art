@@ -8,7 +8,8 @@ const router = express.Router();
 
 // Multer storage for local uploads
 const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, path.join(process.cwd(), 'uploads')),
+  destination: (_req, _file, cb) =>
+    cb(null, path.join(process.cwd(), 'uploads')),
   filename: (_req, file, cb) => {
     // Clean filename: remove spaces and special characters, keep only alphanumeric, dots, and hyphens
     const cleanName = file.originalname
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${cleanName}`);
   },
 });
-console.log('current:', process.cwd())
+console.log('current:', process.cwd());
 const upload = multer({ storage });
 
 // /api/pictures
@@ -33,15 +34,15 @@ router.post('/upload', upload.single('image'), (req, res) => {
       res.status(400).json({ success: false, message: 'No file uploaded' });
       return;
     }
-    
+
     console.log('File uploaded successfully:', {
       filename: req.file.filename,
       originalname: req.file.originalname,
       size: req.file.size,
       mimetype: req.file.mimetype,
-      path: req.file.path
+      path: req.file.path,
     });
-    
+
     // Verify file exists after upload
     const fs = require('fs');
     if (fs.existsSync(req.file.path)) {
@@ -49,22 +50,20 @@ router.post('/upload', upload.single('image'), (req, res) => {
     } else {
       console.error('File does not exist after upload:', req.file.path);
     }
-    
+
     // Generate full URL for the uploaded file
     const fileUrl = `${config.apiBaseUrl}/uploads/${req.file.filename}`;
-    
+
     console.log('Generated file URL:', fileUrl);
     res.status(200).json({ success: true, fileUrl });
   } catch (error) {
     console.error('Upload error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Upload failed', 
-      error: error instanceof Error ? error.message : 'Unknown error' 
+    res.status(500).json({
+      success: false,
+      message: 'Upload failed',
+      error: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 });
 
 export default router;
-
-

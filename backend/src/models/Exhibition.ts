@@ -26,5 +26,3 @@ const exhibitionSchema = new Schema<IExhibition>(
 );
 
 export default mongoose.model<IExhibition>('Exhibition', exhibitionSchema);
-
-

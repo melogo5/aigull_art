@@ -21,9 +21,11 @@ export class PictureService {
 
     if (_id) query._id = _id as any;
     if (name) query.name = { $regex: String(name), $options: 'i' };
-    if (description) query.description = { $regex: String(description), $options: 'i' };
+    if (description)
+      query.description = { $regex: String(description), $options: 'i' };
     if (typeof year !== 'undefined') query.year = Number(year);
-    if (typeof available !== 'undefined') query.available = available === true || available === 'true';
+    if (typeof available !== 'undefined')
+      query.available = available === true || available === 'true';
     if (typeof width !== 'undefined') query.width = Number(width);
     if (typeof height !== 'undefined') query.height = Number(height);
     if (material) query.material = { $regex: String(material), $options: 'i' };
@@ -31,7 +33,7 @@ export class PictureService {
     if (updatedAt) query.updatedAt = updatedAt as any;
 
     const pictures = await Picture.find(query).sort({ createdAt: -1 });
-    
+
     // Convert relative URLs to absolute URLs
     return pictures.map(picture => {
       if (picture.imgUrl && picture.imgUrl.startsWith('/uploads/')) {
@@ -69,10 +71,14 @@ export class PictureService {
     return await Picture.findByIdAndDelete(id);
   }
 
-  static async editPicture(id: string, updateData: Partial<IPicture>): Promise<IPicture | null> {
+  static async editPicture(
+    id: string,
+    updateData: Partial<IPicture>
+  ): Promise<IPicture | null> {
     // Prevent img binary field edits since we use imgUrl; still allow imgUrl edits
-    return await Picture.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
+    return await Picture.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
   }
 }
-
-

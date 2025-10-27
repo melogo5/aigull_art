@@ -28,7 +28,9 @@ export const Summary: React.FC = () => {
             maxWidth: 760,
           }}
         >
-          Более десяти лет я исследую мир через призму цвета и формы. Мои работы — это диалог между классическими техниками и современным видением, где каждая картина рассказывает свою уникальную историю.
+          Более десяти лет я исследую мир через призму цвета и формы. Мои работы
+          — это диалог между классическими техниками и современным видением, где
+          каждая картина рассказывает свою уникальную историю.
         </p>
       </div>
 
@@ -55,7 +57,14 @@ export const Summary: React.FC = () => {
 type StatProps = { number: string; label: string };
 
 const Stat: React.FC<StatProps> = ({ number, label }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 8,
+    }}
+  >
     <span
       style={{
         fontFamily: 'var(--font-sans)',
@@ -82,5 +91,3 @@ const Stat: React.FC<StatProps> = ({ number, label }) => (
 );
 
 export default Summary;
-
-

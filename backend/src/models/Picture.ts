@@ -28,5 +28,3 @@ const pictureSchema = new Schema<IPicture>(
 );
 
 export default mongoose.model<IPicture>('Picture', pictureSchema);
-
-

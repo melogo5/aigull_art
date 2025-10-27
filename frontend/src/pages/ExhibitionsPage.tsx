@@ -10,13 +10,20 @@ export const ExhibitionsPage: React.FC = () => {
       </div>
 
       <section className="mb-4">
-        <h2 style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 16,
-          lineHeight: '24px',
-          color: 'var(--color-accent)'
-        }}>Предстоящие</h2>
-        <div className="mt-3" style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 16,
+            lineHeight: '24px',
+            color: 'var(--color-accent)',
+          }}
+        >
+          Предстоящие
+        </h2>
+        <div
+          className="mt-3"
+          style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+        >
           <ExhibitionCard
             variant="upcoming"
             title="Современные течения в изобразительном искусстве"
@@ -35,13 +42,20 @@ export const ExhibitionsPage: React.FC = () => {
       </section>
 
       <section className="mb-5">
-        <h2 style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 16,
-          lineHeight: '24px',
-          color: '#364153'
-        }}>Архив</h2>
-        <div className="mt-3" style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 16,
+            lineHeight: '24px',
+            color: '#364153',
+          }}
+        >
+          Архив
+        </h2>
+        <div
+          className="mt-3"
+          style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+        >
           <ExhibitionCard
             title="Персональная выставка"
             place={`Галерея "Борей", Санкт-Петербург`}
@@ -79,5 +93,3 @@ export const ExhibitionsPage: React.FC = () => {
 };
 
 export default ExhibitionsPage;
-
-

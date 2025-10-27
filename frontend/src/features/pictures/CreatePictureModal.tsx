@@ -2,16 +2,27 @@ import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Switch, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useUnit } from 'effector-react';
-import { $isCreateModalOpen, closeCreateModal, submitCreate, CreatePictureForm, uploadImageFx, createPictureFx } from './model/picturesStore';
+import {
+  $isCreateModalOpen,
+  closeCreateModal,
+  submitCreate,
+  CreatePictureForm,
+  uploadImageFx,
+  createPictureFx,
+} from './model/picturesStore';
 
 export const CreatePictureModal: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [form] = Form.useForm<CreatePictureForm>();
 
-  const [isOpen, imageLoading, pictureLoading] = useUnit([$isCreateModalOpen, uploadImageFx.pending, createPictureFx.pending]);
+  const [isOpen, imageLoading, pictureLoading] = useUnit([
+    $isCreateModalOpen,
+    uploadImageFx.pending,
+    createPictureFx.pending,
+  ]);
   const close = useUnit(closeCreateModal);
   const submit = useUnit(submitCreate);
-  const loading = imageLoading || pictureLoading
+  const loading = imageLoading || pictureLoading;
   const onOk = async () => {
     try {
       const values = await form.validateFields();
@@ -22,9 +33,21 @@ export const CreatePictureModal: React.FC = () => {
   };
 
   return (
-    <Modal title="Добавить картину" open={isOpen} onOk={onOk} onCancel={close} confirmLoading={loading} okText="Сохранить" cancelText="Отмена">
+    <Modal
+      title="Добавить картину"
+      open={isOpen}
+      onOk={onOk}
+      onCancel={close}
+      confirmLoading={loading}
+      okText="Сохранить"
+      cancelText="Отмена"
+    >
       <Form form={form} layout="vertical" initialValues={{ available: true }}>
-        <Form.Item name="name" label="Название" rules={[{ required: true, message: 'Введите название' }]}>
+        <Form.Item
+          name="name"
+          label="Название"
+          rules={[{ required: true, message: 'Введите название' }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item name="description" label="Описание">
@@ -33,20 +56,44 @@ export const CreatePictureModal: React.FC = () => {
         <Form.Item name="year" label="Год" rules={[{ required: true }]}>
           <InputNumber min={0} style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item name="material" label="Материал" rules={[{ required: true }]}>
+        <Form.Item
+          name="material"
+          label="Материал"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="width" label="Ширина (см)" rules={[{ required: true }]}>
+        <Form.Item
+          name="width"
+          label="Ширина (см)"
+          rules={[{ required: true }]}
+        >
           <InputNumber min={1} style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item name="height" label="Высота (см)" rules={[{ required: true }]}>
+        <Form.Item
+          name="height"
+          label="Высота (см)"
+          rules={[{ required: true }]}
+        >
           <InputNumber min={1} style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item name="available" label="Доступна к продаже" valuePropName="checked">
+        <Form.Item
+          name="available"
+          label="Доступна к продаже"
+          valuePropName="checked"
+        >
           <Switch />
         </Form.Item>
         <Form.Item label="Изображение">
-          <Upload beforeUpload={(f) => { setFile(f); return false; }} maxCount={1} accept="image/*" listType="text">
+          <Upload
+            beforeUpload={f => {
+              setFile(f);
+              return false;
+            }}
+            maxCount={1}
+            accept="image/*"
+            listType="text"
+          >
             <Button icon={<UploadOutlined />}>Выбрать файл</Button>
           </Upload>
         </Form.Item>
@@ -56,5 +103,3 @@ export const CreatePictureModal: React.FC = () => {
 };
 
 export default CreatePictureModal;
-
-

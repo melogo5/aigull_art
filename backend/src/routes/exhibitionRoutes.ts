@@ -10,5 +10,3 @@ router.delete('/deleteExhibition/:id', exhibitionController.deleteExhibition);
 router.put('/editExhibition/:id', exhibitionController.editExhibition);
 
 export default router;
-
-
