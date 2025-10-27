@@ -3,44 +3,6 @@ import { UserService } from '../services/userService';
 import { AuthRequest } from '../middlewares/auth';
 
 export const userController = {
-  // @desc    Register user
-  // @route   POST /api/users/register
-  // @access  Public
-  register: async (req: Request, res: Response): Promise<void> => {
-    try {
-      const { name, email, password } = req.body;
-
-      if (!name || !email || !password) {
-        res.status(400).json({
-          success: false,
-          message: 'Please provide all required fields',
-        });
-        return;
-      }
-
-      const user = await UserService.createUser({ name, email, password });
-      const token = await UserService.authenticateUser(email, password);
-
-      res.status(201).json({
-        success: true,
-        data: {
-          user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          },
-          token,
-        },
-      });
-    } catch (error) {
-      res.status(400).json({
-        success: false,
-        message: error instanceof Error ? error.message : 'Registration failed',
-      });
-    }
-  },
-
   // @desc    Login user
   // @route   POST /api/users/login
   // @access  Public
@@ -98,7 +60,6 @@ export const userController = {
             name: user?.name,
             email: user?.email,
             role: user?.role,
-            avatar: user?.avatar,
           },
         },
       });

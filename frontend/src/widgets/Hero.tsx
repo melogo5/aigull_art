@@ -8,8 +8,9 @@ export const Hero: React.FC = () => {
         <div className="hero-content">
           <h1>Welcome to Aigull Art</h1>
           <div className="hero-buttons">
-            <Link to="/register" className="btn">Get Started</Link>
-            <Link to="/login" className="btn btn-secondary">Login</Link>
+            <Link to="/login" className="btn btn-secondary">
+              Login
+            </Link>
           </div>
         </div>
       </div>

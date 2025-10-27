@@ -6,7 +6,6 @@ import { validateUser, validateLogin, handleValidationErrors } from '../utils/va
 const router = express.Router();
 
 // Public routes
-router.post('/register', validateUser, handleValidationErrors, userController.register);
 router.post('/login', validateLogin, handleValidationErrors, userController.login);
 
 // Protected routes

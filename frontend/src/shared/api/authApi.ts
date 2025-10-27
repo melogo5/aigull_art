@@ -25,11 +25,6 @@ export const authApi = {
     return response.data.data;
   },
 
-  register: async (name: string, email: string, password: string) => {
-    const response = await api.post('/users/register', { name, email, password });
-    return response.data.data;
-  },
-
   getMe: async (): Promise<User> => {
     const response = await api.get('/users/me');
     return response.data.data.user;

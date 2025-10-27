@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Form, Input, InputNumber, Switch, Upload, Button, message } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Form, Input, InputNumber, Switch, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useUnit } from 'effector-react';
 import { $isCreateModalOpen, closeCreateModal, submitCreate, CreatePictureForm, uploadImageFx, createPictureFx } from './model/picturesStore';
@@ -8,11 +8,10 @@ export const CreatePictureModal: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [form] = Form.useForm<CreatePictureForm>();
 
-  const isOpen = useUnit($isCreateModalOpen);
+  const [isOpen, imageLoading, pictureLoading] = useUnit([$isCreateModalOpen, uploadImageFx.pending, createPictureFx.pending]);
   const close = useUnit(closeCreateModal);
   const submit = useUnit(submitCreate);
-  const loading = useUnit(uploadImageFx.pending) || useUnit(createPictureFx.pending);
-
+  const loading = imageLoading || pictureLoading
   const onOk = async () => {
     try {
       const values = await form.validateFields();
@@ -21,41 +20,6 @@ export const CreatePictureModal: React.FC = () => {
       console.error('Form validation failed:', error);
     }
   };
-
-  // Handle success and error states
-  useEffect(() => {
-    const handleSuccess = () => {
-      message.success('Картина успешно добавлена!');
-      form.resetFields();
-      setFile(null);
-    };
-
-    const handleError = ({ error }: { error: any }) => {
-      message.error(`Ошибка при создании картины: ${error?.message || 'Неизвестная ошибка'}`);
-    };
-
-    const handleUploadError = ({ error }: { error: any }) => {
-      message.error(`Ошибка при загрузке изображения: ${error?.message || 'Неизвестная ошибка'}`);
-    };
-
-    // Subscribe to events
-    const unsubscribeDone = createPictureFx.done.watch(handleSuccess);
-    const unsubscribeFail = createPictureFx.fail.watch(handleError);
-    const unsubscribeUploadFail = uploadImageFx.fail.watch(handleUploadError);
-
-    return () => {
-      // Cleanup subscriptions
-      if (unsubscribeDone) {
-        unsubscribeDone();
-      }
-      if (unsubscribeFail) {
-        unsubscribeFail();
-      }
-      if (unsubscribeUploadFail) {
-        unsubscribeUploadFail();
-      }
-    };
-  }, [form]);
 
   return (
     <Modal title="Добавить картину" open={isOpen} onOk={onOk} onCancel={close} confirmLoading={loading} okText="Сохранить" cancelText="Отмена">

@@ -4,7 +4,7 @@ import videoSrc from '@/shared/assets/video/welcome.mp4';
 
 export const WelcomeHero: React.FC = () => {
   return (
-    <section style={{ position: 'relative', width: '100%', height: '72vh', minHeight: 480, borderRadius: 12, overflow: 'hidden' }}>
+    <section style={{ position: 'relative', width: '100%', height: '72vh', minHeight: 480, overflow: 'hidden' }}>
       <video
         autoPlay
         muted

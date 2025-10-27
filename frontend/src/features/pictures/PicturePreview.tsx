@@ -12,7 +12,6 @@ const cardStyle: React.CSSProperties = {
   backgroundColor: '#0a0a0a',
   overflow: 'hidden',
   borderRadius: 8,
-  border: '1px solid rgba(255,255,255,0.08)'
 };
 
 const infoStyleBase: React.CSSProperties = {
@@ -32,7 +31,10 @@ const infoStyleBase: React.CSSProperties = {
 export const PicturePreview: React.FC<Props> = ({ picture }) => {
   const [hovered, setHovered] = useState(false);
 
-  const infoStyle = { ...infoStyleBase, opacity: hovered ? 1 : 0 } as React.CSSProperties;
+  const infoStyle = {
+    ...infoStyleBase,
+    opacity: hovered ? 1 : 0,
+  } as React.CSSProperties;
 
   return (
     <div
@@ -44,12 +46,22 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
         <img
           src={picture.imgUrl}
           alt={picture.name}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
         />
       )}
       <div style={infoStyle}>
-        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>{picture.name}</div>
-        <div style={{ opacity: 0.9 }}>{`${picture.width}×${picture.height} см`}</div>
+        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
+          {picture.name}
+        </div>
+        <div
+          style={{ opacity: 0.9 }}
+        >{`${picture.width}×${picture.height} см`}</div>
         <div style={{ opacity: 0.9, marginTop: 2 }}>{picture.material}</div>
         <div style={{ opacity: 0.8, marginTop: 2 }}>{picture.year}</div>
         {picture.available && (
@@ -73,5 +85,3 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
 };
 
 export default PicturePreview;
-
-

@@ -59,22 +59,75 @@ export const Header: React.FC = () => {
     <header className={classes.header}>
       <div className={classes.container}>
         <nav className={classes.navbar}>
-          <Link to="/" className={classes.brand}>Айгуль Утлякова</Link>
+          <Link to="/" className={classes.brand}>
+            Айгуль Утлякова
+          </Link>
           <div className={classes.nav}>
-            <NavLink to="/" end className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Главная</NavLink>
-            <NavLink to="/bio" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Биография</NavLink>
-            <NavLink to="/gallery" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Галерея</NavLink>
-            <NavLink to="/exhibitions" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Выставки</NavLink>
-            <NavLink to="/contacts" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Контакты</NavLink>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                `${classes.link} ${isActive ? classes.linkActive : ''}`
+              }
+            >
+              Главная
+            </NavLink>
+            <NavLink
+              to="/bio"
+              className={({ isActive }) =>
+                `${classes.link} ${isActive ? classes.linkActive : ''}`
+              }
+            >
+              Биография
+            </NavLink>
+            <NavLink
+              to="/gallery"
+              className={({ isActive }) =>
+                `${classes.link} ${isActive ? classes.linkActive : ''}`
+              }
+            >
+              Галерея
+            </NavLink>
+            <NavLink
+              to="/exhibitions"
+              className={({ isActive }) =>
+                `${classes.link} ${isActive ? classes.linkActive : ''}`
+              }
+            >
+              Выставки
+            </NavLink>
+            <NavLink
+              to="/contacts"
+              className={({ isActive }) =>
+                `${classes.link} ${isActive ? classes.linkActive : ''}`
+              }
+            >
+              Контакты
+            </NavLink>
             {user ? (
               <>
-                <NavLink to="/profile" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Профиль</NavLink>
-                <button onClick={logout} className="btn btn-secondary">Выйти</button>
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    `${classes.link} ${isActive ? classes.linkActive : ''}`
+                  }
+                >
+                  Профиль
+                </NavLink>
+                <button onClick={logout} className="btn btn-secondary">
+                  Выйти
+                </button>
               </>
             ) : (
               <>
-                <NavLink to="/login" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Вход</NavLink>
-                <NavLink to="/register" className={({ isActive }) => `${classes.link} ${isActive ? classes.linkActive : ''}`}>Регистрация</NavLink>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    `${classes.link} ${isActive ? classes.linkActive : ''}`
+                  }
+                >
+                  Вход
+                </NavLink>
               </>
             )}
           </div>
