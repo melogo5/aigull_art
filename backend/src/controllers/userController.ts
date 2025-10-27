@@ -27,13 +27,19 @@ export const userController = {
       const user = await UserService.getUserById(decoded.userId);
 
       // Set HTTP-only cookie with token
-      res.cookie('token', token, {
+      const cookieOptions: any = {
         httpOnly: true,
-        secure: config.nodeEnv === 'production',
         sameSite: 'lax',
         maxAge: config.cookieMaxAge,
         path: '/',
-      });
+      };
+
+      // Only set secure in production with HTTPS
+      if (config.nodeEnv === 'production' && req.secure) {
+        cookieOptions.secure = true;
+      }
+
+      res.cookie('token', token, cookieOptions);
 
       res.status(200).json({
         success: true,
@@ -135,12 +141,17 @@ export const userController = {
   // @access  Private
   logout: async (req: Request, res: Response): Promise<void> => {
     try {
-      res.clearCookie('token', {
+      const clearCookieOptions: any = {
         httpOnly: true,
-        secure: config.nodeEnv === 'production',
         sameSite: 'lax',
         path: '/',
-      });
+      };
+
+      if (config.nodeEnv === 'production' && req.secure) {
+        clearCookieOptions.secure = true;
+      }
+
+      res.clearCookie('token', clearCookieOptions);
 
       res.status(200).json({
         success: true,
