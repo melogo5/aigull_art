@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/userService';
 import { AuthRequest } from '../middlewares/auth';
+import { config } from '../config/config';
 
 export const userController = {
   // @desc    Login user
@@ -19,11 +20,20 @@ export const userController = {
       }
 
       const token = await UserService.authenticateUser(email, password);
-      
+
       // Decode token to get user ID
       const jwt = require('jsonwebtoken');
       const decoded = jwt.decode(token) as { userId: string };
       const user = await UserService.getUserById(decoded.userId);
+
+      // Set HTTP-only cookie with token
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: config.nodeEnv === 'production',
+        sameSite: 'lax',
+        maxAge: config.cookieMaxAge,
+        path: '/',
+      });
 
       res.status(200).json({
         success: true,
@@ -34,7 +44,6 @@ export const userController = {
             email: user?.email,
             role: user?.role,
           },
-          token,
         },
       });
     } catch (error) {
@@ -112,6 +121,30 @@ export const userController = {
       res.status(200).json({
         success: true,
         data: user,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Server error',
+      });
+    }
+  },
+
+  // @desc    Logout user
+  // @route   POST /api/users/logout
+  // @access  Private
+  logout: async (req: Request, res: Response): Promise<void> => {
+    try {
+      res.clearCookie('token', {
+        httpOnly: true,
+        secure: config.nodeEnv === 'production',
+        sameSite: 'lax',
+        path: '/',
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Logged out successfully',
       });
     } catch (error) {
       res.status(500).json({

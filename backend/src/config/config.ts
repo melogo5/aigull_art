@@ -10,4 +10,5 @@ export const config = {
   jwtExpire: process.env.JWT_EXPIRE || '7d',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:5000',
+  cookieMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
 };

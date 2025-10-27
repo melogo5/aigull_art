@@ -5,15 +5,25 @@ import { Button } from 'antd';
 import { useUnit } from 'effector-react';
 import { openCreateModal } from '@/features/pictures/model/picturesStore';
 import CreatePictureModal from '@/features/pictures/CreatePictureModal';
+import { $user } from '@/shared/model/auth';
 
 export const GalleryPage: React.FC = () => {
   const open = useUnit(openCreateModal);
+
+  const user = useUnit($user);
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
       <HeadingTitle title="Галерея" />
-      <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
-        <Button type="primary" onClick={() => open()}>Добавить картину</Button>
-      </div>
+      {user && (
+        <div
+          style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}
+        >
+          <Button type="primary" onClick={() => open()}>
+            Добавить картину
+          </Button>
+        </div>
+      )}
+
       <div style={{ marginTop: 24 }}>
         <PicturesView />
       </div>
@@ -23,5 +33,3 @@ export const GalleryPage: React.FC = () => {
 };
 
 export default GalleryPage;
-
-

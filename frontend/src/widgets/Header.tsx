@@ -115,7 +115,7 @@ export const Header: React.FC = () => {
                 >
                   Профиль
                 </NavLink>
-                <button onClick={logout} className="btn btn-secondary">
+                <button onClick={() => logout()} className="btn btn-secondary">
                   Выйти
                 </button>
               </>

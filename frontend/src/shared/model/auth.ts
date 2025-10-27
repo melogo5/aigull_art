@@ -7,14 +7,16 @@ export const logout = createEvent();
 export const fetchUser = createEvent();
 
 export const loginFx = createEffect(authApi.login);
+export const logoutFx = createEffect(authApi.logout);
 export const fetchUserFx = createEffect(authApi.getMe);
 
 export const $user = createStore<User | null>(null)
   .on(fetchUserFx.doneData, (_, user) => user)
   .reset(logout);
 
-export const $isLoggingIn = loginFx.pending
-export const $isFecthingUser = fetchUserFx.pending
+export const $isLoggingIn = loginFx.pending;
+export const $isLoggingOut = logoutFx.pending;
+export const $isFecthingUser = fetchUserFx.pending;
 
 sample({
   clock: login,
@@ -29,4 +31,9 @@ sample({
 sample({
   clock: fetchUser,
   target: fetchUserFx,
+});
+
+sample({
+  clock: logout,
+  target: logoutFx,
 });
