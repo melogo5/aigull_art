@@ -22,12 +22,16 @@ RUN npm prune --production
 # Открываем порт
 EXPOSE 5000
 
+# Создаем директорию для загрузок
+RUN mkdir -p /app/uploads
+
 # Создаем пользователя для безопасности
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nodejs -u 1001
 
-# Меняем владельца файлов
+# Меняем владельца файлов и директории uploads
 RUN chown -R nodejs:nodejs /app
+RUN chmod 755 /app/uploads
 USER nodejs
 
 # Запускаем приложение

@@ -10,6 +10,9 @@ const startServer = async (): Promise<void> => {
     // Start server
     const server = app.listen(Number(config.port), '0.0.0.0', () => {
       console.log(`Server running in ${config.nodeEnv} mode on port ${config.port}`);
+      console.log(`Server accessible at: http://localhost:${config.port}`);
+      console.log(`API endpoints available at: http://localhost:${config.port}/api`);
+      console.log(`Static files available at: http://localhost:${config.port}/uploads`);
     });
 
     // Handle unhandled promise rejections

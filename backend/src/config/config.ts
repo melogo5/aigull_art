@@ -9,4 +9,5 @@ export const config = {
   jwtSecret: process.env.JWT_SECRET || 'fallback-secret-key',
   jwtExpire: process.env.JWT_EXPIRE || '7d',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:5000',
 };

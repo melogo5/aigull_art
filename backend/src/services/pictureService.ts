@@ -1,5 +1,6 @@
 import Picture, { IPicture } from '../models/Picture';
 import { FilterQuery } from 'mongoose';
+import { config } from '../config/config';
 
 export class PictureService {
   static async listPictures(filters: Partial<IPicture>): Promise<IPicture[]> {
@@ -29,7 +30,15 @@ export class PictureService {
     if (createdAt) query.createdAt = createdAt as any;
     if (updatedAt) query.updatedAt = updatedAt as any;
 
-    return await Picture.find(query).sort({ createdAt: -1 });
+    const pictures = await Picture.find(query).sort({ createdAt: -1 });
+    
+    // Convert relative URLs to absolute URLs
+    return pictures.map(picture => {
+      if (picture.imgUrl && picture.imgUrl.startsWith('/uploads/')) {
+        picture.imgUrl = `${config.apiBaseUrl}${picture.imgUrl}`;
+      }
+      return picture;
+    });
   }
 
   static async addPicture(data: {
