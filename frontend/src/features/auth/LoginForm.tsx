@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './useAuth';
 import { Space } from 'antd';
+import {
+  $isFecthingUser,
+  $isLoggingIn,
+  $user,
+  login,
+} from '@/shared/model/auth';
+import { useUnit } from 'effector-react';
 
 export const LoginForm: React.FC = () => {
+  const [isLoggingIn, isFecthingUser, user] = useUnit([
+    $isLoggingIn,
+    $isFecthingUser,
+    $user,
+  ]);
+  const loading = isLoggingIn || isFecthingUser;
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const { login } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/profile');
+    }
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -23,23 +38,12 @@ export const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      await login(formData.email, formData.password);
-      navigate('/profile');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
-    } finally {
-      setLoading(false);
-    }
+    login({ email: formData.email, password: formData.password });
   };
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
       <h1>Секретный вход</h1>
-      {error && <div className="error-message">{error}</div>}
       <Space direction="vertical">
         <input
           type="email"

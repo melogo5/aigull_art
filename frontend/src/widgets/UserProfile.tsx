@@ -1,8 +1,9 @@
+import { $user } from '@/shared/model/auth';
+import { useUnit } from 'effector-react';
 import React from 'react';
-import { useAuth } from '@/features/auth';
 
 export const UserProfile: React.FC = () => {
-  const { user } = useAuth();
+  const user = useUnit($user);
 
   if (!user) {
     return <div>Нужно войти чтобы увидеть профиль</div>;

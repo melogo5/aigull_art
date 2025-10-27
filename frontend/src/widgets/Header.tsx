@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
-import { useAuth } from '@/features/auth';
+import { $user, logout } from '@/shared/model/auth';
+import { useUnit } from 'effector-react';
 
 const useStyles = createUseStyles({
   header: {
@@ -52,7 +53,7 @@ const useStyles = createUseStyles({
 });
 
 export const Header: React.FC = () => {
-  const { user, logout } = useAuth();
+  const [user] = useUnit([$user]);
   const classes = useStyles();
 
   return (
