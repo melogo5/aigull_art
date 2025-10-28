@@ -12,7 +12,7 @@ export const GalleryPage: React.FC = () => {
 
   const user = useUnit($user);
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
+    <div style={{ maxWidth: 1200, margin: '0 auto' }}>
       <HeadingTitle title="Галерея" />
       {user && (
         <div

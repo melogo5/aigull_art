@@ -3,7 +3,7 @@ import HeadingTitle from '@/shared/ui/HeadingTitle';
 
 export const ContactInfo: React.FC = () => {
   return (
-    <section className="container" style={{ padding: '80px 0' }}>
+    <section className="container">
       <div style={{ textAlign: 'center' }}>
         <HeadingTitle title="Контакты" />
         <p

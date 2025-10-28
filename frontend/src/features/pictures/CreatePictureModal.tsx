@@ -56,11 +56,7 @@ export const CreatePictureModal: React.FC = () => {
         <Form.Item name="year" label="Год" rules={[{ required: true }]}>
           <InputNumber min={0} style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item
-          name="material"
-          label="Материал"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="material" label="Материал">
           <Input />
         </Form.Item>
         <Form.Item
@@ -84,18 +80,37 @@ export const CreatePictureModal: React.FC = () => {
         >
           <Switch />
         </Form.Item>
-        <Form.Item label="Изображение">
-          <Upload
-            beforeUpload={f => {
-              setFile(f);
-              return false;
-            }}
-            maxCount={1}
-            accept="image/*"
-            listType="text"
+        <Form.Item label="Изображение" required>
+          <Form.Item
+            name="imageFile"
+            rules={[
+              {
+                validator: () =>
+                  file
+                    ? Promise.resolve()
+                    : Promise.reject('Загрузите изображение'),
+              },
+            ]}
+            noStyle
           >
-            <Button icon={<UploadOutlined />}>Выбрать файл</Button>
-          </Upload>
+            <Upload
+              beforeUpload={f => {
+                setFile(f);
+                // триггерим валидацию поля при выборе файла
+                form.validateFields(['imageFile']);
+                return false;
+              }}
+              onRemove={() => {
+                setFile(null);
+                form.validateFields(['imageFile']);
+              }}
+              maxCount={1}
+              accept="image/*"
+              listType="text"
+            >
+              <Button icon={<UploadOutlined />}>Выбрать файл</Button>
+            </Upload>
+          </Form.Item>
         </Form.Item>
       </Form>
     </Modal>

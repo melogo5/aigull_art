@@ -46,6 +46,8 @@ services:
       CORS_ORIGIN: 'http://213.171.29.12,https://213.171.29.12,http://utlyakova-art.ru,https://utlyakova-art.ru'
     ports:
       - '5000:5000'
+    volumes:
+      - uploads_data:/app/uploads
     depends_on:
       - mongodb
     networks:
@@ -65,6 +67,7 @@ services:
 
 volumes:
   mongodb_data:
+  uploads_data:
 
 networks:
   aigull-network:

@@ -19,7 +19,7 @@ export const FeatureList: React.FC = () => {
   return (
     <section className="features">
       <div className="container">
-        <h2 className="text-center mb-5">Features</h2>
+        <h2 className="text-center">Features</h2>
         <div className="feature-grid">
           {features.map((feature, index) => (
             <div key={index} className="feature-card">

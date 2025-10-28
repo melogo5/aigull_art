@@ -138,9 +138,6 @@ body {
 .mt-4 {
   margin-top: 1.5rem;
 }
-.mt-5 {
-  margin-top: 3rem;
-}
 
 .mb-1 {
   margin-bottom: 0.25rem;
@@ -153,9 +150,6 @@ body {
 }
 .mb-4 {
   margin-bottom: 1.5rem;
-}
-.mb-5 {
-  margin-bottom: 3rem;
 }
 
 /* Header styles */

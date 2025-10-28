@@ -5,9 +5,7 @@ import ExhibitionCard from '@/features/exhibitions/ExhibitionCard';
 export const ExhibitionsPage: React.FC = () => {
   return (
     <div className="container">
-      <div className="mt-5 mb-5">
-        <HeadingTitle title="Выставки" />
-      </div>
+      <HeadingTitle title="Выставки" />
 
       <section className="mb-4">
         <h2
@@ -41,7 +39,7 @@ export const ExhibitionsPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="mb-5">
+      <section>
         <h2
           style={{
             fontFamily: 'var(--font-sans)',

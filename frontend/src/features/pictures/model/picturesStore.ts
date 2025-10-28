@@ -34,7 +34,7 @@ export type CreatePictureForm = {
   width: number | string;
   height: number | string;
   material: string;
-  imageFile?: File | null;
+  imageFile: File | null;
 };
 
 export const submitCreate = createEvent<CreatePictureForm>();
@@ -63,10 +63,9 @@ export const createPictureFx = createEffect(
   }
 );
 
-// Orchestrate: if image provided -> upload -> then create
+// Orchestrate: upload image -> then create (изображение обязательно)
 sample({
   clock: submitCreate,
-  filter: f => Boolean(f.imageFile),
   fn: f => f.imageFile as File,
   target: uploadImageFx,
 });
@@ -95,22 +94,7 @@ sample({
   target: createPictureFx,
 });
 
-// If no image, create directly
-sample({
-  clock: submitCreate,
-  filter: f => !f.imageFile,
-  fn: form => ({
-    name: form.name,
-    description: form.description ?? '',
-    year: Number(form.year),
-    available: form.available,
-    width: Number(form.width),
-    height: Number(form.height),
-    material: form.material,
-    imgUrl: '',
-  }),
-  target: createPictureFx,
-});
+// Путь без изображения удалён: создаём только после успешной загрузки
 
 // After create, refresh list and close modal
 sample({
