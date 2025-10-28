@@ -16,15 +16,10 @@ export const getFullImageUrl = (relativePath?: string): string | undefined => {
     return relativePath;
   }
 
-  // Получаем базовый URL без '/api' для изображений
+  // Всегда используем тот же домен БЕЗ порта
+  // - В development: Vite proxy проксирует /uploads/ на localhost:5000
+  // - В production: nginx проксирует /uploads/ на backend:5000
   const { protocol, hostname } = window.location;
-
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    // Для локальной разработки используем порт 5000
-    return `${protocol}//${hostname}:5000${relativePath}`;
-  }
-
-  // Для production используем тот же домен
   return `${protocol}//${hostname}${relativePath}`;
 };
 
@@ -32,17 +27,9 @@ export const getFullImageUrl = (relativePath?: string): string | undefined => {
  * Получает базовый URL API
  */
 export const getApiBaseUrl = (): string => {
-  // Если задана переменная окружения - используем её
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-
-  // Иначе используем тот же домен, что и сайт, но с портом 5000 для локальной разработки
+  // Всегда используем тот же домен БЕЗ порта
+  // - В development: Vite proxy проксирует /api/ на localhost:5000
+  // - В production: nginx проксирует /api/ на backend:5000
   const { protocol, hostname } = window.location;
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return `${protocol}//${hostname}:5000/api`;
-  }
-
-  // Для production - используем тот же домен
   return `${protocol}//${hostname}/api`;
 };
