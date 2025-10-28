@@ -8,7 +8,9 @@ export const config = {
   mongoURI: process.env.MONGO_URI || 'mongodb://localhost:27017/aigull_art',
   jwtSecret: process.env.JWT_SECRET || 'fallback-secret-key',
   jwtExpire: process.env.JWT_EXPIRE || '7d',
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  corsOrigin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+    : ['http://localhost:3000'],
   apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:5000',
   cookieMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
 };

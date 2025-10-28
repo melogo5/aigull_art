@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password123
       MONGO_INITDB_DATABASE: aigull_art
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongodb_data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
@@ -26,7 +26,7 @@ services:
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: password123
     ports:
-      - "8081:8081"
+      - '8081:8081'
     depends_on:
       - mongodb
     networks:
@@ -43,9 +43,9 @@ services:
       MONGO_URI: mongodb://admin:password123@mongodb:27017/aigull_art?authSource=admin
       JWT_SECRET: your-super-secret-jwt-key-for-production
       JWT_EXPIRE: 7d
-      CORS_ORIGIN: http://YOUR_VPS_IP
+      CORS_ORIGIN: 'http://213.171.29.12,https://213.171.29.12,http://utlyakova-art.ru,https://utlyakova-art.ru'
     ports:
-      - "5000:5000"
+      - '5000:5000'
     depends_on:
       - mongodb
     networks:
@@ -57,7 +57,7 @@ services:
     container_name: aigull-art-frontend
     restart: unless-stopped
     ports:
-      - "80:80"
+      - '80:80'
     depends_on:
       - backend
     networks:

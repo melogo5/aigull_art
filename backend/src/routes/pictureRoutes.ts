@@ -51,8 +51,9 @@ router.post('/upload', upload.single('image'), (req, res) => {
       console.error('File does not exist after upload:', req.file.path);
     }
 
-    // Generate full URL for the uploaded file
-    const fileUrl = `${config.apiBaseUrl}/uploads/${req.file.filename}`;
+    // Generate relative path for the uploaded file
+    // Frontend будет сам формировать полный URL на основе своего домена
+    const fileUrl = `/uploads/${req.file.filename}`;
 
     console.log('Generated file URL:', fileUrl);
     res.status(200).json({ success: true, fileUrl });

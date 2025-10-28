@@ -34,13 +34,8 @@ export class PictureService {
 
     const pictures = await Picture.find(query).sort({ createdAt: -1 });
 
-    // Convert relative URLs to absolute URLs
-    return pictures.map(picture => {
-      if (picture.imgUrl && picture.imgUrl.startsWith('/uploads/')) {
-        picture.imgUrl = `${config.apiBaseUrl}${picture.imgUrl}`;
-      }
-      return picture;
-    });
+    // Возвращаем относительные пути - frontend сам сформирует полные URL
+    return pictures;
   }
 
   static async addPicture(data: {

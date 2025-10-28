@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Picture } from '@/shared/api/picturesApi';
+import { getFullImageUrl } from '@/shared/utils/urlUtils';
 
 type Props = {
   picture: Picture;
@@ -44,7 +45,7 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
     >
       {picture.imgUrl && (
         <img
-          src={picture.imgUrl}
+          src={getFullImageUrl(picture.imgUrl)}
           alt={picture.name}
           style={{
             position: 'absolute',
