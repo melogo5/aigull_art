@@ -16,9 +16,6 @@ export const getFullImageUrl = (relativePath?: string): string | undefined => {
     return relativePath;
   }
 
-  // Используем origin (включая порт), чтобы в dev идти через Vite proxy
-  // - В development: Vite proxy проксирует /uploads/ на localhost:5000
-  // - В production: nginx проксирует /uploads/ на backend:5000
   const { origin } = window.location;
   return `${origin}${relativePath}`;
 };
