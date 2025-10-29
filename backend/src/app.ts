@@ -113,7 +113,7 @@ app.use('*', (req, res) => {
   });
 });
 
-// Error handling middleware (must be last)
+ middleware (must be last)
 app.use(errorHandler);
 
 export default app;

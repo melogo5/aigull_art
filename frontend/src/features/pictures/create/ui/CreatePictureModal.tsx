@@ -63,41 +63,8 @@ export const CreatePictureModal: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, modalValues]);
 
-  const onOk = async () => {
-    try {
-      const values = await form.validateFields();
-      submit({ ...values, imageFile: file });
-    } catch (error) {
-      console.error('Form validation failed:', error);
-    }
-  };
-
-  const onEditOk = async () => {
-    try {
-      const values = await form.validateFields();
-      const modalVals = values as any; // use current form values; fallback to modal values below if needed
-      doSubmitEdit({
-        id:
-          (values as any).id ||
-          ((typeof (values as any).id === 'string'
-            ? (values as any).id
-            : (modalVals as any)?._id) as string),
-        name: values.name,
-        description: values.description,
-        year: values.year,
-        available: values.available,
-        width: values.width,
-        height: values.height,
-        material: values.material,
-        imageFile: file,
-      });
-    } catch (error) {
-      console.error('Edit form validation failed:', error);
-    }
-  };
-
   const onFinish: FormProps['onFinish'] = values => {
-    console.log(values)
+    console.log(values);
   };
 
   return (
