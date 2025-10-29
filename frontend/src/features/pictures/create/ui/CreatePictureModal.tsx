@@ -57,7 +57,6 @@ export const CreatePictureModal: React.FC = () => {
         height: initialValues.height,
         material: initialValues.material,
       })
-      console.log(initialValues.available)
     } else {
       form.resetFields()
     }
@@ -71,11 +70,9 @@ export const CreatePictureModal: React.FC = () => {
       imageFile: file,
     }
 
-    // Set form values in store
     setFormValues(formData)
 
     if (isEditMode) {
-      // Edit mode: call editPicture with ID
       const pictureId = modalValues.values._id
       if (!pictureId) {
         console.error('Picture ID is missing for edit mode')
@@ -86,7 +83,6 @@ export const CreatePictureModal: React.FC = () => {
         ...formData,
       } as EditPictureBody)
     } else {
-      // Create mode: call createPicture
       createPicture(formData as CreatePictureForm)
     }
   }
@@ -166,7 +162,6 @@ export const CreatePictureModal: React.FC = () => {
             <Upload
               beforeUpload={f => {
                 setFile(f)
-                // триггерим валидацию поля при выборе файла
                 form.validateFields(['imageFile'])
                 return false
               }}

@@ -5,7 +5,6 @@ import exhibitionRoutes from './exhibitionRoutes';
 
 const router = express.Router();
 
-// Health check route
 router.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
@@ -14,7 +13,6 @@ router.get('/health', (req, res) => {
   });
 });
 
-// API routes
 router.use('/users', userRoutes);
 router.use('/pictures', pictureRoutes);
 router.use('/exhibitions', exhibitionRoutes);

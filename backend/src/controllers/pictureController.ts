@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { PictureService } from '../services/pictureService';
 
 export const pictureController = {
-  // GET /api/pictures - with filters (all fields except img)
   getPictures: async (req: Request, res: Response): Promise<void> => {
     try {
       const pictures = await PictureService.listPictures(req.query as any);
@@ -14,7 +13,6 @@ export const pictureController = {
     }
   },
 
-  // POST /api/pictures/addPicture
   addPicture: async (req: Request, res: Response): Promise<void> => {
     try {
       const {
@@ -56,7 +54,6 @@ export const pictureController = {
     }
   },
 
-  // DELETE /api/pictures/deletePicture/:id
   deletePicture: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
@@ -73,7 +70,6 @@ export const pictureController = {
     }
   },
 
-  // PUT /api/pictures/editPicture/:id
   editPicture: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;

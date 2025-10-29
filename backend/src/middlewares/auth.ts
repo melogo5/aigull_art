@@ -13,7 +13,6 @@ export const auth = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    // Try to get token from cookie first, then from Authorization header
     let token = req.cookies?.token;
 
     if (!token) {

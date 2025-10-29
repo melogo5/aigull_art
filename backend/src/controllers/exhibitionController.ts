@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { ExhibitionService } from '../services/exhibitionService';
 
 export const exhibitionController = {
-  // GET /api/exhibitions
   getExhibitions: async (req: Request, res: Response): Promise<void> => {
     try {
       const exhibitions = await ExhibitionService.listExhibitions(
@@ -16,7 +15,6 @@ export const exhibitionController = {
     }
   },
 
-  // POST /api/exhibitions/addExhibition
   addExhibition: async (req: Request, res: Response): Promise<void> => {
     try {
       const {
@@ -56,7 +54,6 @@ export const exhibitionController = {
     }
   },
 
-  // DELETE /api/exhibitions/deleteExhibition/:id
   deleteExhibition: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
@@ -75,7 +72,6 @@ export const exhibitionController = {
     }
   },
 
-  // PUT /api/exhibitions/editExhibition/:id
   editExhibition: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;

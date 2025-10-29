@@ -9,7 +9,6 @@ import {
 
 const router = express.Router();
 
-// Public routes
 router.post(
   '/login',
   validateLogin,
@@ -17,7 +16,6 @@ router.post(
   userController.login
 );
 
-// Protected routes
 router.get('/me', auth, userController.getMe);
 router.post('/logout', auth, userController.logout);
 router.get('/', auth, userController.getUsers);

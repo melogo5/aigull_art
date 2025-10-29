@@ -9,8 +9,8 @@ export type FormValues = {
   height: number | string
   material: string
   imageFile?: File
-  imgUrl?: string // for edit mode
-  _id?: string // picture ID for edit mode
+  imgUrl?: string
+  _id?: string
 }
 
 export const modalController = createModalController<{

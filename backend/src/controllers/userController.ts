@@ -4,9 +4,6 @@ import { AuthRequest } from '../middlewares/auth';
 import { config } from '../config/config';
 
 export const userController = {
-  // @desc    Login user
-  // @route   POST /api/users/login
-  // @access  Public
   login: async (req: Request, res: Response): Promise<void> => {
     try {
       const { email, password } = req.body;
@@ -21,12 +18,10 @@ export const userController = {
 
       const token = await UserService.authenticateUser(email, password);
 
-      // Decode token to get user ID
       const jwt = require('jsonwebtoken');
       const decoded = jwt.decode(token) as { userId: string };
       const user = await UserService.getUserById(decoded.userId);
 
-      // Set HTTP-only cookie with token
       const cookieOptions: any = {
         httpOnly: true,
         sameSite: 'lax',
@@ -34,7 +29,6 @@ export const userController = {
         path: '/',
       };
 
-      // Only set secure in production with HTTPS
       if (config.nodeEnv === 'production' && req.secure) {
         cookieOptions.secure = true;
       }
@@ -60,9 +54,6 @@ export const userController = {
     }
   },
 
-  // @desc    Get current user
-  // @route   GET /api/users/me
-  // @access  Private
   getMe: async (req: AuthRequest, res: Response): Promise<void> => {
     try {
       const user = req.user;
@@ -86,9 +77,6 @@ export const userController = {
     }
   },
 
-  // @desc    Get all users
-  // @route   GET /api/users
-  // @access  Private/Admin
   getUsers: async (req: Request, res: Response): Promise<void> => {
     try {
       const users = await UserService.getAllUsers();
@@ -106,9 +94,6 @@ export const userController = {
     }
   },
 
-  // @desc    Update user
-  // @route   PUT /api/users/:id
-  // @access  Private
   updateUser: async (req: AuthRequest, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
@@ -136,9 +121,6 @@ export const userController = {
     }
   },
 
-  // @desc    Logout user
-  // @route   POST /api/users/logout
-  // @access  Private
   logout: async (req: Request, res: Response): Promise<void> => {
     try {
       const clearCookieOptions: any = {
@@ -165,9 +147,6 @@ export const userController = {
     }
   },
 
-  // @desc    Delete user
-  // @route   DELETE /api/users/:id
-  // @access  Private/Admin
   deleteUser: async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;

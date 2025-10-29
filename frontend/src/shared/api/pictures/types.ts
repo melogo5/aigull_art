@@ -21,7 +21,7 @@ export type EditPictureBody = {
   width: number | string
   height: number | string
   material: string
-  imageFile?: File | null // изображение опционально при редактировании
+  imageFile?: File | null
 }
 export type CreatePictureForm = {
   name: string
