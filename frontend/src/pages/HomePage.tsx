@@ -1,7 +1,7 @@
-import React from 'react';
-import WelcomeHero from '@/widgets/WelcomeHero';
-import Summary from '@/features/summary/Summary';
-import ContactInfo from '@/widgets/ContactInfo';
+import React from 'react'
+import WelcomeHero from '@/widgets/WelcomeHero'
+import Summary from '@/features/summary/Summary'
+import ContactInfo from '@/widgets/ContactInfo'
 
 export const HomePage: React.FC = () => {
   return (
@@ -14,5 +14,5 @@ export const HomePage: React.FC = () => {
         <ContactInfo />
       </div>
     </div>
-  );
-};
+  )
+}

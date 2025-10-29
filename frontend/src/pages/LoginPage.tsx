@@ -1,5 +1,5 @@
-import React from 'react';
-import { LoginForm } from '@/features/auth';
+import React from 'react'
+import { LoginForm } from '@/features/auth'
 
 export const LoginPage: React.FC = () => {
   return (
@@ -10,5 +10,5 @@ export const LoginPage: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

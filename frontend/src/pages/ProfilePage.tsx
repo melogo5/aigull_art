@@ -1,5 +1,5 @@
-import React from 'react';
-import { UserProfile } from '@/widgets/UserProfile';
+import React from 'react'
+import { UserProfile } from '@/widgets/UserProfile'
 
 export const ProfilePage: React.FC = () => {
   return (
@@ -8,5 +8,5 @@ export const ProfilePage: React.FC = () => {
         <UserProfile />
       </div>
     </div>
-  );
-};
+  )
+}

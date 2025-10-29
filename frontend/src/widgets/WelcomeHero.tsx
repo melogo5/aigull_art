@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import videoSrc from '@/shared/assets/video/welcome.mp4';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import videoSrc from '@/shared/assets/video/welcome.mp4'
 
 export const WelcomeHero: React.FC = () => {
   return (
@@ -80,7 +80,7 @@ export const WelcomeHero: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default WelcomeHero;
+export default WelcomeHero

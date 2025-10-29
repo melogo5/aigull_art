@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const Summary: React.FC = () => {
   return (
@@ -51,10 +51,10 @@ export const Summary: React.FC = () => {
         <Stat number="8" label="Лет опыта" />
       </div>
     </section>
-  );
-};
+  )
+}
 
-type StatProps = { number: string; label: string };
+type StatProps = { number: string; label: string }
 
 const Stat: React.FC<StatProps> = ({ number, label }) => (
   <div
@@ -88,6 +88,6 @@ const Stat: React.FC<StatProps> = ({ number, label }) => (
       {label}
     </span>
   </div>
-);
+)
 
-export default Summary;
+export default Summary

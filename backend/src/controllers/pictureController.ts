@@ -48,13 +48,11 @@ export const pictureController = {
 
       res.status(201).json({ success: true, data: picture });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          message:
-            error instanceof Error ? error.message : 'Failed to add picture',
-        });
+      res.status(400).json({
+        success: false,
+        message:
+          error instanceof Error ? error.message : 'Failed to add picture',
+      });
     }
   },
 
@@ -86,13 +84,11 @@ export const pictureController = {
       }
       res.status(200).json({ success: true, data: updated });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          message:
-            error instanceof Error ? error.message : 'Failed to edit picture',
-        });
+      res.status(400).json({
+        success: false,
+        message:
+          error instanceof Error ? error.message : 'Failed to edit picture',
+      });
     }
   },
 };

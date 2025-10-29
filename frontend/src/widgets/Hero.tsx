@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Hero: React.FC = () => {
   return (
@@ -15,5 +15,5 @@ export const Hero: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

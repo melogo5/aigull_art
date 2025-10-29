@@ -1,3 +1,2 @@
 // Barrel export for backward compatibility
-export * from './fetch';
-
+export * from './fetch'

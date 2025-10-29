@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 type HeadingTitleProps = {
-  title: string;
-  className?: string;
-};
+  title: string
+  className?: string
+}
 
 const HeadingTitle: React.FC<HeadingTitleProps> = ({ title, className }) => {
   return (
@@ -28,7 +28,7 @@ const HeadingTitle: React.FC<HeadingTitleProps> = ({ title, className }) => {
         }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default HeadingTitle;
+export default HeadingTitle

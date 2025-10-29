@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { createUseStyles } from 'react-jss';
-import { $user, logout } from '@/shared/model/auth';
-import { useUnit } from 'effector-react';
+import React from 'react'
+import { NavLink, Link } from 'react-router-dom'
+import { createUseStyles } from 'react-jss'
+import { $user, logout } from '@/shared/model/auth'
+import { useUnit } from 'effector-react'
 
 const useStyles = createUseStyles({
   header: {
@@ -50,11 +50,11 @@ const useStyles = createUseStyles({
     color: '#9a031e',
     borderBottom: '2px solid #9a031e',
   },
-});
+})
 
 export const Header: React.FC = () => {
-  const [user] = useUnit([$user]);
-  const classes = useStyles();
+  const [user] = useUnit([$user])
+  const classes = useStyles()
 
   return (
     <header className={classes.header}>
@@ -135,5 +135,5 @@ export const Header: React.FC = () => {
         </nav>
       </div>
     </header>
-  );
-};
+  )
+}

@@ -3,7 +3,7 @@ import { Picture } from '@/shared/api/pictures'
 import { getFullImageUrl } from '@/shared/utils/urlUtils'
 import { Button, Popconfirm, message } from 'antd'
 import { useUnit } from 'effector-react'
-import { $picturesLoading, fetchPicturesFx } from '@/entities/picture/model/picturesStore'
+import { fetchPicturesFx } from '@/entities/picture/model/picturesStore'
 import { picturesApi } from '@/shared/api/pictures'
 import { modalController } from '../../create/model/modal'
 import { $user } from '@/shared/model/auth'
@@ -39,8 +39,7 @@ const { setTitle, setValues, open } = modalController
 
 export const PicturePreview: React.FC<Props> = ({ picture }) => {
   const [hovered, setHovered] = useState(false)
-  const user = useUnit([$user])
-  $picturesLoading
+  const user = useUnit($user)
 
   const infoStyle = {
     ...infoStyleBase,

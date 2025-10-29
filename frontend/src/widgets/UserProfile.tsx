@@ -1,12 +1,12 @@
-import { $user } from '@/shared/model/auth';
-import { useUnit } from 'effector-react';
-import React from 'react';
+import { $user } from '@/shared/model/auth'
+import { useUnit } from 'effector-react'
+import React from 'react'
 
 export const UserProfile: React.FC = () => {
-  const user = useUnit($user);
+  const user = useUnit($user)
 
   if (!user) {
-    return <div>Нужно войти чтобы увидеть профиль</div>;
+    return <div>Нужно войти чтобы увидеть профиль</div>
   }
 
   return (
@@ -22,5 +22,5 @@ export const UserProfile: React.FC = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}

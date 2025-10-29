@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 type ExhibitionCardProps = {
-  title: string;
-  place: string;
-  dates: string;
-  year: string;
-  variant?: 'upcoming' | 'archive';
-};
+  title: string
+  place: string
+  dates: string
+  year: string
+  variant?: 'upcoming' | 'archive'
+}
 
 const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
   title,
@@ -15,7 +15,7 @@ const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
   year,
   variant = 'archive',
 }) => {
-  const isUpcoming = variant === 'upcoming';
+  const isUpcoming = variant === 'upcoming'
 
   return (
     <div
@@ -75,7 +75,7 @@ const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
         {year}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ExhibitionCard;
+export default ExhibitionCard

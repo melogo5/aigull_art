@@ -1,13 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { HomePage } from '@/pages/HomePage';
-import { LoginPage } from '@/pages/LoginPage';
-import { ProfilePage } from '@/pages/ProfilePage';
-import { ExhibitionsPage } from '@/pages/ExhibitionsPage';
-import { GalleryPage } from '@/pages/GalleryPage';
-import { ContactsPage } from '@/pages/ContactsPage';
-import { Header } from '@/widgets/Header';
-import { Footer } from '@/widgets/Footer';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HomePage } from '@/pages/HomePage'
+import { LoginPage } from '@/pages/LoginPage'
+import { ProfilePage } from '@/pages/ProfilePage'
+import { ExhibitionsPage } from '@/pages/ExhibitionsPage'
+import { GalleryPage } from '@/pages/GalleryPage'
+import { ContactsPage } from '@/pages/ContactsPage'
+import { Header } from '@/widgets/Header'
+import { Footer } from '@/widgets/Footer'
 
 const Routing: React.FC = () => {
   return (
@@ -27,7 +27,7 @@ const Routing: React.FC = () => {
         <Footer />
       </div>
     </Router>
-  );
-};
+  )
+}
 
-export default Routing;
+export default Routing

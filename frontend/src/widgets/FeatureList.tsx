@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const FeatureList: React.FC = () => {
   const features = [
@@ -14,7 +14,7 @@ export const FeatureList: React.FC = () => {
       title: 'User Profiles',
       description: 'Build your portfolio and showcase your artistic journey',
     },
-  ];
+  ]
 
   return (
     <section className="features">
@@ -30,5 +30,5 @@ export const FeatureList: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

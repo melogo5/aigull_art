@@ -1,5 +1,5 @@
-import React from 'react';
-import HeadingTitle from '@/shared/ui/HeadingTitle';
+import React from 'react'
+import HeadingTitle from '@/shared/ui/HeadingTitle'
 
 export const ContactInfo: React.FC = () => {
   return (
@@ -63,8 +63,8 @@ export const ContactInfo: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
 const Circle48: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div
@@ -80,6 +80,6 @@ const Circle48: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   >
     {children}
   </div>
-);
+)
 
-export default ContactInfo;
+export default ContactInfo

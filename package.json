@@ -14,7 +14,13 @@
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
-    "docker:dev": "docker-compose -f docker-compose.dev.yml up --build"
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up --build",
+    "format": "npm run format:frontend && npm run format:backend",
+    "format:frontend": "prettier --write \"frontend/src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+    "format:backend": "prettier --write \"backend/src/**/*.{ts,js,json,md}\"",
+    "format:check": "npm run format:check:frontend && npm run format:check:backend",
+    "format:check:frontend": "prettier --check \"frontend/src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+    "format:check:backend": "prettier --check \"backend/src/**/*.{ts,js,json,md}\""
   },
   "keywords": [
     "react",
@@ -29,7 +35,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.1.0"
   },
   "engines": {
     "node": ">=16.0.0",

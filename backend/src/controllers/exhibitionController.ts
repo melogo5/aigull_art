@@ -48,13 +48,11 @@ export const exhibitionController = {
 
       res.status(201).json({ success: true, data: exhibition });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          message:
-            error instanceof Error ? error.message : 'Failed to add exhibition',
-        });
+      res.status(400).json({
+        success: false,
+        message:
+          error instanceof Error ? error.message : 'Failed to add exhibition',
+      });
     }
   },
 
@@ -90,15 +88,11 @@ export const exhibitionController = {
       }
       res.status(200).json({ success: true, data: updated });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          success: false,
-          message:
-            error instanceof Error
-              ? error.message
-              : 'Failed to edit exhibition',
-        });
+      res.status(400).json({
+        success: false,
+        message:
+          error instanceof Error ? error.message : 'Failed to edit exhibition',
+      });
     }
   },
 };
