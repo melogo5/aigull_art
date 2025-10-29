@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { createUseStyles } from 'react-jss'
 import { $user, logout } from '@/shared/model/auth'
 import { useUnit } from 'effector-react'
@@ -50,11 +50,28 @@ const useStyles = createUseStyles({
     color: '#9a031e',
     borderBottom: '2px solid #9a031e',
   },
+  hiddenLoginButton: {
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    width: '50px',
+    height: '50px',
+    opacity: 0,
+    cursor: 'default',
+    zIndex: 9999,
+    background: 'transparent',
+    border: 'none',
+  },
 })
 
 export const Header: React.FC = () => {
   const [user] = useUnit([$user])
   const classes = useStyles()
+  const navigate = useNavigate()
+
+  const handleDoubleClick = () => {
+    navigate('/login')
+  }
 
   return (
     <header className={classes.header}>
@@ -119,21 +136,17 @@ export const Header: React.FC = () => {
                   Выйти
                 </button>
               </>
-            ) : (
-              <>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    `${classes.link} ${isActive ? classes.linkActive : ''}`
-                  }
-                >
-                  Вход
-                </NavLink>
-              </>
-            )}
+            ) : null}
           </div>
         </nav>
       </div>
+      {!user && (
+        <div
+          className={classes.hiddenLoginButton}
+          onDoubleClick={handleDoubleClick}
+          title=""
+        />
+      )}
     </header>
   )
 }
