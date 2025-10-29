@@ -68,9 +68,24 @@ export const Header: React.FC = () => {
   const [user] = useUnit([$user])
   const classes = useStyles()
   const navigate = useNavigate()
+  const lastTapRef = React.useRef<number>(0)
 
   const handleDoubleClick = () => {
     navigate('/login')
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const now = Date.now()
+    const timeSinceLastTap = now - lastTapRef.current
+    
+    if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
+      // Двойной тап обнаружен
+      e.preventDefault()
+      navigate('/login')
+      lastTapRef.current = 0
+    } else {
+      lastTapRef.current = now
+    }
   }
 
   return (
@@ -144,6 +159,7 @@ export const Header: React.FC = () => {
         <div
           className={classes.hiddenLoginButton}
           onDoubleClick={handleDoubleClick}
+          onTouchEnd={handleTouchEnd}
           title=""
         />
       )}
