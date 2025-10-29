@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   Modal,
   Form,
@@ -8,23 +8,24 @@ import {
   Upload,
   Button,
   FormProps,
-} from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import { useUnit } from 'effector-react';
+} from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
+import { useUnit } from 'effector-react'
 import {
-  CreatePictureForm,
-  uploadImageFx,
+  uploadCreateImageFx,
   createPictureFx,
-  updatePictureFx,
-} from '@/entities/picture/model/picturesStore';
-import { modalController } from '../model/modal';
-import { EditPictureBody } from '@/shared/api/pictures';
+  createPicture,
+} from '../model/create'
+import { editPictureFx, editPicture } from '../model/edit'
+import { modalController } from '../model/modal'
+import { setFormValues } from '../model/form'
+import { EditPictureBody, CreatePictureForm } from '@/shared/api/pictures'
 
-const { $isOpen, $title, $values, close } = modalController;
+const { $isOpen, $title, $values, close } = modalController
 
 export const CreatePictureModal: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [form] = Form.useForm<CreatePictureForm>();
+  const [file, setFile] = useState<File | null>(null)
+  const [form] = Form.useForm<CreatePictureForm>()
 
   const [
     isOpen,
@@ -37,16 +38,16 @@ export const CreatePictureModal: React.FC = () => {
     $isOpen,
     $title,
     $values,
-    uploadImageFx.pending,
+    uploadCreateImageFx.pending,
     createPictureFx.pending,
-    updatePictureFx.pending,
-  ]);
-  const isEditMode = modalValues.mode === 'EDIT';
-  const loading = uploadPending || createPending || updatePending;
+    editPictureFx.pending,
+  ])
+  const isEditMode = modalValues.mode === 'EDIT'
+  const loading = uploadPending || createPending || updatePending
 
   useEffect(() => {
-    const initialValues = modalValues.values as EditPictureBody;
-    if (isOpen && initialValues) {
+    const initialValues = modalValues.values as EditPictureBody
+    if (isOpen && Object.keys(initialValues).length) {
       form.setFieldsValue({
         name: initialValues.name,
         description: initialValues.description,
@@ -55,17 +56,40 @@ export const CreatePictureModal: React.FC = () => {
         width: initialValues.width,
         height: initialValues.height,
         material: initialValues.material,
-      });
+      })
+      console.log(initialValues.available)
     } else {
-      form.resetFields();
+      form.resetFields()
     }
-    setFile(null);
+    setFile(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, modalValues]);
+  }, [isOpen, modalValues])
 
   const onFinish: FormProps['onFinish'] = values => {
-    console.log(values);
-  };
+    const formData = {
+      ...values,
+      imageFile: file,
+    }
+
+    // Set form values in store
+    setFormValues(formData)
+
+    if (isEditMode) {
+      // Edit mode: call editPicture with ID
+      const pictureId = modalValues.values._id
+      if (!pictureId) {
+        console.error('Picture ID is missing for edit mode')
+        return
+      }
+      editPicture({
+        id: pictureId,
+        ...formData,
+      } as EditPictureBody)
+    } else {
+      // Create mode: call createPicture
+      createPicture(formData as CreatePictureForm)
+    }
+  }
 
   return (
     <Modal
@@ -141,14 +165,14 @@ export const CreatePictureModal: React.FC = () => {
           >
             <Upload
               beforeUpload={f => {
-                setFile(f);
+                setFile(f)
                 // триггерим валидацию поля при выборе файла
-                form.validateFields(['imageFile']);
-                return false;
+                form.validateFields(['imageFile'])
+                return false
               }}
               onRemove={() => {
-                setFile(null);
-                form.validateFields(['imageFile']);
+                setFile(null)
+                form.validateFields(['imageFile'])
               }}
               maxCount={1}
               accept="image/*"
@@ -160,7 +184,7 @@ export const CreatePictureModal: React.FC = () => {
         </Form.Item>
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-export default CreatePictureModal;
+export default CreatePictureModal

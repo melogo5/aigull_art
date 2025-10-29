@@ -1,7 +1,4 @@
 import { createModalController } from '@/shared/utils/createModalController'
-import { sample } from 'effector'
-import { editPicture, fetchPicturesFx } from '@/entities/picture/model/picturesStore'
-import { createPictureFx } from './create'
 
 export type FormValues = {
   name: string
@@ -12,6 +9,8 @@ export type FormValues = {
   height: number | string
   material: string
   imageFile?: File
+  imgUrl?: string // for edit mode
+  _id?: string // picture ID for edit mode
 }
 
 export const modalController = createModalController<{
@@ -20,9 +19,4 @@ export const modalController = createModalController<{
 }>({
   values: {},
   mode: 'CREATE',
-})
-
-sample({
-  clock: [createPictureFx.done, editPicture],
-  target: [modalController.close, modalController.resetValues],
 })

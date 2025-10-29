@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Picture } from '@/shared/api/pictures';
-import { getFullImageUrl } from '@/shared/utils/urlUtils';
-import { Button, Popconfirm, message } from 'antd';
-import { useUnit } from 'effector-react';
-import { fetchPicturesFx } from '../../../../entities/picture/model/picturesStore';
-import { picturesApi } from '@/shared/api/pictures';
-import { modalController } from '../../create/model/modal';
+import React, { useState } from 'react'
+import { Picture } from '@/shared/api/pictures'
+import { getFullImageUrl } from '@/shared/utils/urlUtils'
+import { Button, Popconfirm, message } from 'antd'
+import { useUnit } from 'effector-react'
+import { fetchPicturesFx } from '../../../../entities/picture/model/picturesStore'
+import { picturesApi } from '@/shared/api/pictures'
+import { modalController } from '../../create/model/modal'
 
 type Props = {
-  picture: Picture;
-};
+  picture: Picture
+}
 
 const cardStyle: React.CSSProperties = {
   position: 'relative',
@@ -18,7 +18,7 @@ const cardStyle: React.CSSProperties = {
   backgroundColor: '#0a0a0a',
   overflow: 'hidden',
   borderRadius: 8,
-};
+}
 
 const infoStyleBase: React.CSSProperties = {
   position: 'absolute',
@@ -32,35 +32,48 @@ const infoStyleBase: React.CSSProperties = {
   background: 'rgba(0,0,0,0.86)',
   padding: 16,
   transition: 'opacity 200ms ease',
-};
+}
 
 export const PicturePreview: React.FC<Props> = ({ picture }) => {
-  const [hovered, setHovered] = useState(false);
-  const triggerRefresh = useUnit(fetchPicturesFx);
-  const openModal = useUnit(modalController.open);
-  const setModalTitle = useUnit(modalController.setTitle);
-  const setModalValues = useUnit(modalController.setValues);
+  const [hovered, setHovered] = useState(false)
+  const triggerRefresh = useUnit(fetchPicturesFx)
+  const openModal = useUnit(modalController.open)
+  const setModalTitle = useUnit(modalController.setTitle)
+  const setModalValues = useUnit(modalController.setValues)
 
   const infoStyle = {
     ...infoStyleBase,
     opacity: hovered ? 1 : 0,
-  } as React.CSSProperties;
+  } as React.CSSProperties
 
   const onEditClick = () => {
-    setModalTitle('Редактировать картину');
-    setModalValues(picture);
-    openModal();
-  };
+    setModalTitle('Редактировать картину')
+    setModalValues({
+      values: {
+        name: picture.name,
+        description: picture.description,
+        year: picture.year,
+        available: picture.available,
+        width: picture.width,
+        height: picture.height,
+        material: picture.material,
+        imgUrl: picture.imgUrl,
+        _id: picture._id,
+      },
+      mode: 'EDIT',
+    })
+    openModal()
+  }
 
   const onDelete = async () => {
     try {
-      await picturesApi.remove(picture._id);
-      message.success('Картина удалена');
-      triggerRefresh();
+      await picturesApi.remove(picture._id)
+      message.success('Картина удалена')
+      triggerRefresh()
     } catch (e) {
-      message.error('Не удалось удалить');
+      message.error('Не удалось удалить')
     }
-  };
+  }
 
   return (
     <div
@@ -122,7 +135,7 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PicturePreview;
+export default PicturePreview
