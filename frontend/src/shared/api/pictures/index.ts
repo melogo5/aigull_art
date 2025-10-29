@@ -1,24 +1,11 @@
 import axios from 'axios';
+import { Picture } from './types';
 
 import { getApiBaseUrl } from '@/shared/utils/urlUtils';
 
 const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({ baseURL: `${API_BASE_URL}/pictures` });
-
-export type Picture = {
-  _id: string;
-  name: string;
-  description?: string;
-  year: number;
-  available: boolean;
-  width: number;
-  height: number;
-  material: string;
-  imgUrl?: string;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export const picturesApi = {
   async list(): Promise<Picture[]> {
@@ -41,4 +28,18 @@ export const picturesApi = {
     });
     return data.data as Picture;
   },
+  async update(
+    id: string,
+    payload: Partial<Omit<Picture, '_id' | 'createdAt' | 'updatedAt'>>
+  ): Promise<Picture> {
+    const { data } = await api.put(`/editPicture/${id}`, payload, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return data.data as Picture;
+  },
+  async remove(id: string): Promise<void> {
+    await api.delete(`/deletePicture/${id}`);
+  },
 };
+
+export * from './types';

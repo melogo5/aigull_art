@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '@/entities/User';
+import { User } from '@/entities/user/types';
 
 import { getApiBaseUrl } from '@/shared/utils/urlUtils';
 

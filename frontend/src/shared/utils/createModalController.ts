@@ -17,10 +17,7 @@ export const createVisibilityToggler = (isOpen = false) => {
   };
 };
 
-export const createModalController = <T>(
-  initialValues: T | {} = {},
-  title = ''
-) => {
+export const createModalController = <T>(initialValues: T, title = '') => {
   const { $isOpen, close, open, toggle } = createVisibilityToggler();
 
   const setTitle = createEvent<string>();
@@ -31,7 +28,7 @@ export const createModalController = <T>(
     setTitle,
     (_, newTitle) => newTitle
   );
-  const $values = createStore<T | {}>(initialValues)
+  const $values = createStore<T>(initialValues)
     .on(setValues, (_, newValues) => newValues)
     .reset(resetValues);
 

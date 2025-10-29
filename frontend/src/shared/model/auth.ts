@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { authApi } from '../api/authApi';
-import { User } from '@/entities/User';
+import { authApi } from '../api/auth/authApi';
+import { User } from '@/entities/user/types';
 
 export const login = createEvent<{ email: string; password: string }>();
 export const logout = createEvent();

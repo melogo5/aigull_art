@@ -3,10 +3,9 @@ import { useUnit } from 'effector-react';
 import {
   $pictures,
   $picturesLoading,
-  $picturesError,
   fetchPictures,
-} from '@/features/pictures/model/picturesStore';
-import { PicturePreview } from '@/features/pictures/PicturePreview';
+} from '@/entities/picture/model/picturesStore';
+import { PicturePreview } from '@/features/pictures/preview/ui/PicturePreview';
 
 const gridStyle: React.CSSProperties = {
   display: 'grid',
@@ -15,10 +14,9 @@ const gridStyle: React.CSSProperties = {
 };
 
 export const PicturesView: React.FC = () => {
-  const [pictures, loading, error, load] = useUnit([
+  const [pictures, loading, load] = useUnit([
     $pictures,
     $picturesLoading,
-    $picturesError,
     fetchPictures,
   ]);
 
@@ -28,12 +26,6 @@ export const PicturesView: React.FC = () => {
 
   if (loading)
     return <div style={{ textAlign: 'center', padding: 24 }}>Загрузка...</div>;
-  if (error)
-    return (
-      <div style={{ color: 'red', textAlign: 'center', padding: 24 }}>
-        {error}
-      </div>
-    );
 
   return (
     <div style={gridStyle}>

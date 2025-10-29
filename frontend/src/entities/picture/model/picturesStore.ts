@@ -1,5 +1,7 @@
 import { createEvent, createStore, createEffect, sample } from 'effector';
-import { picturesApi, Picture } from '@/shared/api/picturesApi';
+import { picturesApi, Picture } from '@/shared/api/pictures';
+import { EditPictureBody } from '@/shared/api/pictures';
+import { modalController } from '@/features/pictures/create';
 
 export const fetchPictures = createEvent();
 
@@ -18,13 +20,6 @@ export const $picturesError = createStore<string | null>(null)
   .reset(fetchPicturesFx.done);
 
 sample({ clock: fetchPictures, target: fetchPicturesFx });
-
-// Create Picture modal and flow
-export const openCreateModal = createEvent();
-export const closeCreateModal = createEvent();
-export const $isCreateModalOpen = createStore(false)
-  .on(openCreateModal, () => true)
-  .on(closeCreateModal, () => false);
 
 export type CreatePictureForm = {
   name: string;
@@ -60,6 +55,25 @@ export const createPictureFx = createEffect(
       console.error('Error creating picture:', error);
       throw error;
     }
+  }
+);
+
+export const updatePictureFx = createEffect(
+  async (
+    params: { id: string } & Partial<
+      Omit<Picture, '_id' | 'createdAt' | 'updatedAt'>
+    >
+  ): Promise<Picture> => {
+    return await picturesApi.update(params.id, {
+      name: params.name,
+      description: params.description,
+      year: params.year,
+      available: params.available,
+      width: params.width,
+      height: params.height,
+      material: params.material,
+      imgUrl: params.imgUrl,
+    });
   }
 );
 
@@ -99,7 +113,7 @@ sample({
 // After create, refresh list and close modal
 sample({
   clock: createPictureFx.done,
-  target: [fetchPicturesFx, closeCreateModal],
+  target: [fetchPicturesFx],
 });
 
 // Clear form data after successful creation
@@ -107,4 +121,69 @@ sample({
   clock: createPictureFx.done,
   fn: () => null,
   target: $submitFormData,
+});
+
+// Edit flow
+export const submitEdit = createEvent<EditPictureBody>();
+
+// If image provided on edit -> upload first
+const $submitEditForm = createStore<EditPictureBody | null>(null).on(
+  submitEdit,
+  (_, form) => form
+);
+
+sample({
+  clock: submitEdit,
+  filter: f => Boolean(f.imageFile),
+  fn: f => f.imageFile as File,
+  target: uploadImageFx,
+});
+
+// When upload done on edit, call update with new imgUrl
+sample({
+  clock: uploadImageFx.doneData,
+  source: $submitEditForm,
+  filter: form => form !== null,
+  fn: (form, fileUrl) => ({
+    id: form!.id,
+    name: form!.name,
+    description: form!.description ?? '',
+    year: Number(form!.year),
+    available: form!.available,
+    width: Number(form!.width),
+    height: Number(form!.height),
+    material: form!.material,
+    imgUrl: fileUrl,
+  }),
+  target: updatePictureFx,
+});
+
+// If no image on edit, update directly
+sample({
+  clock: submitEdit,
+  filter: f => !f.imageFile,
+  fn: form => ({
+    id: form.id,
+    name: form.name,
+    description: form.description ?? '',
+    year: Number(form.year),
+    available: form.available,
+    width: Number(form.width),
+    height: Number(form.height),
+    material: form.material,
+  }),
+  target: updatePictureFx,
+});
+
+// After update, refresh list and close edit modal
+sample({
+  clock: updatePictureFx.done,
+  target: [fetchPicturesFx],
+});
+
+// Clear stored edit form
+sample({
+  clock: updatePictureFx.done,
+  fn: () => null,
+  target: $submitEditForm,
 });

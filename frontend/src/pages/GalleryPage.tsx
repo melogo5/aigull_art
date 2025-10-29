@@ -3,13 +3,15 @@ import HeadingTitle from '@/shared/ui/HeadingTitle';
 import { PicturesView } from '@/widgets/PicturesView';
 import { Button } from 'antd';
 import { useUnit } from 'effector-react';
-import { openCreateModal } from '@/features/pictures/model/picturesStore';
-import CreatePictureModal from '@/features/pictures/CreatePictureModal';
 import { $user } from '@/shared/model/auth';
+import {
+  modalController,
+  CreatePictureModal,
+} from '@/features/pictures/create';
+
+const { setTitle, setValues, open } = modalController;
 
 export const GalleryPage: React.FC = () => {
-  const open = useUnit(openCreateModal);
-
   const user = useUnit($user);
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -18,7 +20,17 @@ export const GalleryPage: React.FC = () => {
         <div
           style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}
         >
-          <Button type="primary" onClick={() => open()}>
+          <Button
+            type="primary"
+            onClick={() => {
+              setTitle('Создание картины');
+              setValues({
+                mode: 'CREATE',
+                values: {},
+              });
+              open();
+            }}
+          >
             Добавить картину
           </Button>
         </div>
