@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { pictureController } from '../controllers/pictureController';
 import { config } from '../config/config';
+import { auth } from '../middlewares/auth';
 
 const router = express.Router();
 
@@ -21,14 +22,16 @@ const storage = multer.diskStorage({
 console.log('current:', process.cwd());
 const upload = multer({ storage });
 
-// /api/pictures
+// Public routes
 router.get('/', pictureController.getPictures);
-router.post('/addPicture', pictureController.addPicture);
-router.delete('/deletePicture/:id', pictureController.deletePicture);
-router.put('/editPicture/:id', pictureController.editPicture);
 
-// Upload endpoint -> returns fileUrl to be saved in imgUrl
-router.post('/upload', upload.single('image'), (req, res) => {
+// Protected routes (require authentication)
+router.post('/addPicture', auth, pictureController.addPicture);
+router.delete('/deletePicture/:id', auth, pictureController.deletePicture);
+router.put('/editPicture/:id', auth, pictureController.editPicture);
+
+// Upload endpoint -> returns fileUrl to be saved in imgUrl (protected)
+router.post('/upload', auth, upload.single('image'), (req, res) => {
   try {
     if (!req.file) {
       res.status(400).json({ success: false, message: 'No file uploaded' });

@@ -3,9 +3,10 @@ import { Picture } from '@/shared/api/pictures'
 import { getFullImageUrl } from '@/shared/utils/urlUtils'
 import { Button, Popconfirm, message } from 'antd'
 import { useUnit } from 'effector-react'
-import { fetchPicturesFx } from '../../../../entities/picture/model/picturesStore'
+import { $picturesLoading, fetchPicturesFx } from '@/entities/picture/model/picturesStore'
 import { picturesApi } from '@/shared/api/pictures'
 import { modalController } from '../../create/model/modal'
+import { $user } from '@/shared/model/auth'
 
 type Props = {
   picture: Picture
@@ -34,12 +35,12 @@ const infoStyleBase: React.CSSProperties = {
   transition: 'opacity 200ms ease',
 }
 
+const { setTitle, setValues, open } = modalController
+
 export const PicturePreview: React.FC<Props> = ({ picture }) => {
   const [hovered, setHovered] = useState(false)
-  const triggerRefresh = useUnit(fetchPicturesFx)
-  const openModal = useUnit(modalController.open)
-  const setModalTitle = useUnit(modalController.setTitle)
-  const setModalValues = useUnit(modalController.setValues)
+  const user = useUnit([$user])
+  $picturesLoading
 
   const infoStyle = {
     ...infoStyleBase,
@@ -47,8 +48,8 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
   } as React.CSSProperties
 
   const onEditClick = () => {
-    setModalTitle('Редактировать картину')
-    setModalValues({
+    setTitle('Редактировать картину')
+    setValues({
       values: {
         name: picture.name,
         description: picture.description,
@@ -62,14 +63,14 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
       },
       mode: 'EDIT',
     })
-    openModal()
+    open()
   }
 
   const onDelete = async () => {
     try {
       await picturesApi.remove(picture._id)
       message.success('Картина удалена')
-      triggerRefresh()
+      fetchPicturesFx()
     } catch (e) {
       message.error('Не удалось удалить')
     }
@@ -118,21 +119,23 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
             Доступна для покупки
           </button>
         )}
-        <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-          <Button size="small" onClick={onEditClick}>
-            Редактировать
-          </Button>
-          <Popconfirm
-            title="Удалить картину?"
-            okText="Удалить"
-            cancelText="Отмена"
-            onConfirm={onDelete}
-          >
-            <Button size="small" danger>
-              Удалить
+        {user && (
+          <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+            <Button size="small" onClick={onEditClick}>
+              Редактировать
             </Button>
-          </Popconfirm>
-        </div>
+            <Popconfirm
+              title="Удалить картину?"
+              okText="Удалить"
+              cancelText="Отмена"
+              onConfirm={onDelete}
+            >
+              <Button size="small" danger>
+                Удалить
+              </Button>
+            </Popconfirm>
+          </div>
+        )}
       </div>
     </div>
   )
