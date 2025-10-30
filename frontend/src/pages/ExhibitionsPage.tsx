@@ -6,7 +6,7 @@ export const ExhibitionsPage: React.FC = () => {
   return (
     <div className="container">
       <HeadingTitle title="Выставки" />
-
+      {/* 
       <section className="mb-4">
         <h2
           style={{
@@ -15,9 +15,7 @@ export const ExhibitionsPage: React.FC = () => {
             lineHeight: '24px',
             color: 'var(--color-accent)',
           }}
-        >
-          Предстоящие
-        </h2>
+        ></h2>
         <div
           className="mt-3"
           style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
@@ -85,7 +83,7 @@ export const ExhibitionsPage: React.FC = () => {
             year="2023"
           />
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }

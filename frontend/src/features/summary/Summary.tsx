@@ -6,17 +6,6 @@ export const Summary: React.FC = () => {
       <div style={{ maxWidth: 880, margin: '0 auto', textAlign: 'center' }}>
         <p
           style={{
-            fontFamily: 'var(--font-sans)',
-            fontWeight: 400,
-            fontSize: 16,
-            lineHeight: '24px',
-            color: 'var(--color-text)', // #333333
-          }}
-        >
-          Искусство в каждом мазке
-        </p>
-        <p
-          style={{
             marginTop: 24,
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -47,8 +36,8 @@ export const Summary: React.FC = () => {
         }}
       >
         <Stat number="150+" label="Работ создано" />
-        <Stat number="25" label="Выставок" />
-        <Stat number="8" label="Лет опыта" />
+        <Stat number="15" label="Выставок" />
+        <Stat number="12" label="Лет опыта" />
       </div>
     </section>
   )

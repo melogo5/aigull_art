@@ -5,7 +5,7 @@ export const Footer: React.FC = () => {
     <footer className="footer">
       <div className="container">
         <div className="text-center">
-          <p>&copy; 2025 Aigull Art. All rights reserved.</p>
+          <p>&copy; 2025 Утлякова Айгуль</p>
         </div>
       </div>
     </footer>

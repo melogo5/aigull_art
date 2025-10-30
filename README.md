@@ -60,6 +60,29 @@ bash scripts/setup-hooks.sh
 git push --no-verify
 ```
 
+## 🔍 SEO оптимизация
+
+Проект включает файлы для оптимизации индексации поисковыми системами:
+
+### robots.txt
+- **Расположение**: `frontend/public/robots.txt`
+- **Назначение**: Управляет доступом поисковых роботов к разделам сайта
+- **Автоматически доступен** по адресу: `https://aigull-art.com/robots.txt`
+
+### sitemap.xml
+- **Расположение**: Генерируется динамически backend'ом
+- **Эндпоинт**: `GET /api/sitemap.xml`
+- **Доступен по адресу**: `https://aigull-art.com/api/sitemap.xml`
+- **Особенности**:
+  - Автоматически включает все картины из базы данных
+  - Обновляется в реальном времени при добавлении новых работ
+  - Включает статические страницы: главная, галерея, выставки, биография, контакты
+
+**Настройка URL в .env:**
+```env
+FRONTEND_URL=https://aigull-art.com  # Ваш production URL
+```
+
 ## 📁 Структура проекта
 
 ```
@@ -132,6 +155,7 @@ MONGO_URI=mongodb://admin:password123@mongodb:27017/aigull_art?authSource=admin
 JWT_SECRET=your-super-secret-jwt-key
 JWT_EXPIRE=7d
 CORS_ORIGIN=http://localhost
+FRONTEND_URL=https://aigull-art.com
 ```
 
 ## 🚀 Развертывание на VPS

@@ -1,0 +1,25 @@
+# Правила для всех поисковых роботов
+User-agent: *
+
+# Разрешить доступ ко всем публичным страницам
+Allow: /
+Allow: /gallery
+Allow: /exhibitions
+Allow: /bio
+Allow: /contacts
+
+# Запретить доступ к служебным страницам
+Disallow: /login
+Disallow: /profile
+Disallow: /api/
+
+# Ссылка на карту сайта
+Sitemap: https://aigull-art.com/api/sitemap.xml
+
+# Настройки для конкретных поисковых систем
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+

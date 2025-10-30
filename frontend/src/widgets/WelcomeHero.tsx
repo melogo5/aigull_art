@@ -51,19 +51,8 @@ export const WelcomeHero: React.FC = () => {
         }}
       >
         <div style={{ color: '#fff', maxWidth: 760, textAlign: 'center' }}>
-          <h1
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontWeight: 600,
-              fontSize: '3.25rem',
-              lineHeight: 1.1,
-            }}
-          >
-            Добро пожаловать
-          </h1>
           <p style={{ marginTop: 20, fontSize: '1.125rem', opacity: 0.92 }}>
-            Мир живописи Айгуль Утляковой — вдохновение, цвет и форма.
-            Исследуйте коллекцию работ и выставок.
+            Пастельные истории на кончиках пальцев
           </p>
           <div
             style={{
