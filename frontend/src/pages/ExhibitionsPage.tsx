@@ -1,6 +1,6 @@
 import React from 'react'
 import HeadingTitle from '@/shared/ui/HeadingTitle'
-import ExhibitionCard from '@/features/exhibitions/ExhibitionCard'
+// import ExhibitionCard from '@/features/exhibitions/ExhibitionCard'
 
 export const ExhibitionsPage: React.FC = () => {
   return (
