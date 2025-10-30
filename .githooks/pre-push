@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Pre-push hook to run frontend build
+# This ensures the TypeScript compilation and Vite build succeed before pushing
+
+echo "Running frontend build before push..."
+
+# Navigate to frontend directory and run build
+cd frontend || exit 1
+
+# Run the build command (includes TypeScript check and Vite build)
+npm run build
+
+# Capture the exit code
+BUILD_EXIT_CODE=$?
+
+# Return to root directory
+cd ..
+
+if [ $BUILD_EXIT_CODE -ne 0 ]; then
+  echo "❌ Frontend build failed. Push aborted."
+  echo "Please fix the build errors before pushing."
+  exit 1
+fi
+
+echo "✅ Frontend build successful. Proceeding with push..."
+exit 0
+

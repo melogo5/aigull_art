@@ -27,6 +27,39 @@
 - JWT аутентификация
 - Bcrypt для хеширования паролей
 
+## 🔧 Настройка проекта
+
+### Git Hooks
+
+Проект использует Git hooks для обеспечения качества кода:
+
+- **pre-push**: Запускает сборку frontend перед push, предотвращая отправку сломанного кода
+
+**Автоматическая настройка:**
+```bash
+npm install  # Автоматически настроит hooks через postinstall
+```
+
+**Ручная настройка:**
+```bash
+npm run setup-hooks
+```
+
+или
+
+```bash
+# Linux/Mac
+bash scripts/setup-hooks.sh
+
+# Windows PowerShell
+.\scripts\setup-hooks.ps1
+```
+
+**Обход hooks (использовать осторожно!):**
+```bash
+git push --no-verify
+```
+
 ## 📁 Структура проекта
 
 ```
