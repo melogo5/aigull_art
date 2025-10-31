@@ -8,12 +8,12 @@ const useStyles = createUseStyles({
   header: {
     backgroundColor: '#fff',
     borderBottom: '1px solid #e5e7eb',
-    padding: '0.75rem 0',
+    padding: '12px 0',
   },
   container: {
     maxWidth: 1200,
     margin: [0, 'auto'],
-    padding: [0, '1rem'],
+    padding: [0, '16px'],
   },
   navbar: {
     display: 'flex',
@@ -21,11 +21,11 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     '@media (max-width: 768px)': {
       flexDirection: 'column',
-      gap: '1rem',
+      gap: '16px',
     },
   },
   brand: {
-    fontSize: '1.5rem',
+    fontSize: '24px',
     fontWeight: 600,
     color: '#000',
     textDecoration: 'none',
@@ -33,7 +33,7 @@ const useStyles = createUseStyles({
   nav: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
+    gap: '16px',
     '@media (max-width: 768px)': {
       flexDirection: 'column',
       width: '100%',
@@ -42,7 +42,7 @@ const useStyles = createUseStyles({
   link: {
     color: '#333',
     textDecoration: 'none',
-    padding: '0.5rem 0.75rem',
+    padding: '8px 12px',
     transition: 'background-color 0.2s',
     '&:hover': { backgroundColor: '#f8f9fa' },
   },

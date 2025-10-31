@@ -11,7 +11,7 @@ const HeadingTitle: React.FC<HeadingTitleProps> = ({ title, className }) => {
       <h1
         style={{
           fontFamily: 'var(--font-serif)',
-          fontSize: '3rem',
+          fontSize: '48px',
           lineHeight: 1.2,
           textAlign: 'center',
           color: 'var(--color-text)',

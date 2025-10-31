@@ -7,8 +7,8 @@ export const AboutPage: React.FC = () => {
     <div
       style={{
         backgroundColor: 'var(--color-surface)',
-        minHeight: '100vh',
-        paddingBottom: '4rem',
+        minHeight: '100%',
+        paddingBottom: '64px',
       }}
     >
       <HeadingTitle title="Биография" className="container" />

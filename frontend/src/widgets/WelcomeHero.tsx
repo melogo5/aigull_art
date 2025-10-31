@@ -8,7 +8,7 @@ export const WelcomeHero: React.FC = () => {
       style={{
         position: 'relative',
         width: '100%',
-        height: '72vh',
+        height: '720px',
         minHeight: 480,
         overflow: 'hidden',
       }}
@@ -51,7 +51,7 @@ export const WelcomeHero: React.FC = () => {
         }}
       >
         <div style={{ color: '#fff', maxWidth: 760, textAlign: 'center' }}>
-          <p style={{ marginTop: 20, fontSize: '2rem' }}>
+          <p style={{ marginTop: 20, fontSize: '32px' }}>
             Пастельные истории на кончиках пальцев
           </p>
           <div
