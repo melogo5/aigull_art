@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
   const handleTouchEnd = (e: React.TouchEvent) => {
     const now = Date.now()
     const timeSinceLastTap = now - lastTapRef.current
-    
+
     if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
       // Двойной тап обнаружен
       e.preventDefault()

@@ -1,36 +1,77 @@
 import React from 'react'
+import { Card, Button, Popconfirm, message } from 'antd'
+import { useUnit } from 'effector-react'
+import { $user } from '@/shared/model/auth'
+import { modalController } from './create'
+import { exhibitionsApi } from '@/shared/api/exhibitions'
+import { fetchExhibitionsFx } from '@/entities/exhibition/model/fetch'
+import { Exhibition } from '@/shared/api/exhibitions'
 
 type ExhibitionCardProps = {
-  title: string
-  place: string
-  dates: string
-  year: string
+  exhibition: Exhibition
   variant?: 'upcoming' | 'archive'
+  formattedDates: string
+  year: string
 }
 
+const { setTitle, setValues, open } = modalController
+
 const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
-  title,
-  place,
-  dates,
-  year,
+  exhibition,
   variant = 'archive',
+  formattedDates,
+  year,
 }) => {
+  const user = useUnit($user)
   const isUpcoming = variant === 'upcoming'
 
+  const onEditClick = () => {
+    setTitle('Редактировать выставку')
+    setValues({
+      values: {
+        name: exhibition.name,
+        description: exhibition.description || '',
+        startDate: exhibition.startDate,
+        endDate: exhibition.endDate,
+        location: exhibition.location,
+        _id: exhibition._id,
+      },
+      mode: 'EDIT',
+    })
+    open()
+  }
+
+  const onDelete = async () => {
+    try {
+      await exhibitionsApi.remove(exhibition._id)
+      message.success('Выставка удалена')
+      fetchExhibitionsFx()
+    } catch (e) {
+      message.error('Не удалось удалить')
+    }
+  }
+
+  const backgroundColor = isUpcoming ? 'rgba(154, 3, 30, 0.06)' : '#f9fafb'
+
   return (
-    <div
+    <Card
       style={{
-        backgroundColor: isUpcoming
-          ? 'rgba(154, 3, 30, 0.06)'
-          : 'var(--color-gray-50)',
+        backgroundColor: backgroundColor,
         borderLeft: `3.6px solid ${isUpcoming ? 'var(--color-accent)' : 'var(--color-gray-200)'}`,
+        borderRadius: 0,
+        borderTop: 'none',
+        borderRight: 'none',
+        borderBottom: 'none',
+      }}
+      bodyStyle={{
         padding: '24px 24px 24px 28px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: backgroundColor,
       }}
     >
-      <div>
+      <div style={{ flex: 1 }}>
         <div
           style={{
             color: isUpcoming ? 'var(--color-accent)' : '#1e2939',
@@ -40,7 +81,7 @@ const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
             marginBottom: 8,
           }}
         >
-          {title}
+          {exhibition.name}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div
@@ -50,7 +91,7 @@ const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
               lineHeight: '24px',
             }}
           >
-            {place}
+            {exhibition.location}
           </div>
           <div
             style={{
@@ -59,9 +100,26 @@ const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
               lineHeight: '24px',
             }}
           >
-            {dates}
+            {formattedDates}
           </div>
         </div>
+        {user && (
+          <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+            <Button size="small" onClick={onEditClick}>
+              Редактировать
+            </Button>
+            <Popconfirm
+              title="Удалить выставку?"
+              onConfirm={onDelete}
+              okText="Да"
+              cancelText="Нет"
+            >
+              <Button size="small" danger>
+                Удалить
+              </Button>
+            </Popconfirm>
+          </div>
+        )}
       </div>
       <div
         style={{
@@ -74,7 +132,7 @@ const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
       >
         {year}
       </div>
-    </div>
+    </Card>
   )
 }
 

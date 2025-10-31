@@ -1,89 +1,138 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Button } from 'antd'
+import { useUnit } from 'effector-react'
 import HeadingTitle from '@/shared/ui/HeadingTitle'
-// import ExhibitionCard from '@/features/exhibitions/ExhibitionCard'
+import ExhibitionCard from '@/features/exhibitions/ExhibitionCard'
+import {
+  fetchExhibitions,
+  $exhibitions,
+  $exhibitionsLoading,
+} from '@/entities/exhibition/model/fetch'
+import { $user } from '@/shared/model/auth'
+import {
+  modalController,
+  CreateExhibitionModal,
+} from '@/features/exhibitions/create'
+import { formatDateRangeToRussian } from '@/shared/utils/formatDate'
+import { Exhibition } from '@/shared/api/exhibitions'
+
+const { setTitle, setValues, open } = modalController
 
 export const ExhibitionsPage: React.FC = () => {
+  const user = useUnit($user)
+  const exhibitions = useUnit($exhibitions)
+  const loading = useUnit($exhibitionsLoading)
+
+  useEffect(() => {
+    fetchExhibitions()
+  }, [])
+
+  const now = new Date()
+  const upcoming = exhibitions.filter(ex => new Date(ex.endDate) >= now)
+  const archive = exhibitions.filter(ex => new Date(ex.endDate) < now)
+
+  const handleCreateClick = () => {
+    setTitle('Создание выставки')
+    setValues({
+      mode: 'CREATE',
+      values: {},
+    })
+    open()
+  }
+
   return (
     <div className="container">
       <HeadingTitle title="Выставки" />
-      {/* 
-      <section className="mb-4">
-        <h2
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 16,
-            lineHeight: '24px',
-            color: 'var(--color-accent)',
-          }}
-        ></h2>
+      {user && (
         <div
-          className="mt-3"
-          style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+          style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}
         >
-          <ExhibitionCard
-            variant="upcoming"
-            title="Современные течения в изобразительном искусстве"
-            place={`Галерея "Арт-Центр", Санкт-Петербург`}
-            dates="15 марта — 30 апреля 2025"
-            year="2025"
-          />
-          <ExhibitionCard
-            variant="upcoming"
-            title="Пастельные истории"
-            place={`Культурный центр "Эрмитаж-Выборгский", Санкт-Петербург`}
-            dates="10 мая — 15 июня 2025"
-            year="2025"
-          />
+          <Button type="primary" onClick={handleCreateClick}>
+            Добавить выставку
+          </Button>
         </div>
-      </section>
+      )}
 
-      <section>
-        <h2
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 16,
-            lineHeight: '24px',
-            color: '#364153',
-          }}
-        >
-          Архив
-        </h2>
-        <div
-          className="mt-3"
-          style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
-        >
-          <ExhibitionCard
-            title="Персональная выставка"
-            place={`Галерея "Борей", Санкт-Петербург`}
-            dates="12 октября — 8 ноября 2024"
-            year="2024"
-          />
-          <ExhibitionCard
-            title={`Групповая выставка "Молодые художники Петербурга"`}
-            place={`Центральный выставочный зал "Манеж", Санкт-Петербург`}
-            dates="3 июня — 25 июля 2024"
-            year="2024"
-          />
-          <ExhibitionCard
-            title="Искусство портрета"
-            place={`Галерея "Модерн", Москва`}
-            dates="15 февраля — 20 марта 2024"
-            year="2024"
-          />
-          <ExhibitionCard
-            title="Выставка-продажа произведений изобразительного искусства"
-            place={`ЦВЗ "Манеж", Санкт-Петербург`}
-            dates="10 сентября — 15 октября 2023"
-            year="2023"
-          />
-          <ExhibitionCard
-            title="Дебют. Новые имена в искусстве"
-            place={`Галерея "Артефакт", Санкт-Петербург`}
-            dates="22 апреля — 15 мая 2023"
-            year="2023"
-          />
-        </div>
-      </section> */}
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: 40 }}>Загрузка...</div>
+      ) : (
+        <>
+          {upcoming.length > 0 && (
+            <section className="mb-4">
+              <h2
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 16,
+                  lineHeight: '24px',
+                  color: 'var(--color-accent)',
+                }}
+              >
+                Предстоящие
+              </h2>
+              <div
+                className="mt-3"
+                style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+              >
+                {upcoming.map((exhibition: Exhibition) => {
+                  const year = new Date(exhibition.startDate)
+                    .getFullYear()
+                    .toString()
+                  const formattedDates = formatDateRangeToRussian(
+                    exhibition.startDate,
+                    exhibition.endDate
+                  )
+                  return (
+                    <ExhibitionCard
+                      key={exhibition._id}
+                      variant="upcoming"
+                      exhibition={exhibition}
+                      formattedDates={formattedDates}
+                      year={year}
+                    />
+                  )
+                })}
+              </div>
+            </section>
+          )}
+
+          {archive.length > 0 && (
+            <section>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 16,
+                  lineHeight: '24px',
+                }}
+              >
+                Архив
+              </h2>
+              <div
+                className="mt-3"
+                style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+              >
+                {archive.map((exhibition: Exhibition) => {
+                  const year = new Date(exhibition.startDate)
+                    .getFullYear()
+                    .toString()
+                  const formattedDates = formatDateRangeToRussian(
+                    exhibition.startDate,
+                    exhibition.endDate
+                  )
+                  return (
+                    <ExhibitionCard
+                      key={exhibition._id}
+                      exhibition={exhibition}
+                      formattedDates={formattedDates}
+                      year={year}
+                    />
+                  )
+                })}
+              </div>
+            </section>
+          )}
+        </>
+      )}
+      <CreateExhibitionModal />
     </div>
   )
 }

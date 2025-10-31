@@ -23,7 +23,7 @@
   --color-text-muted-2: #364153;
   --color-subtext: #6a7282;
   --color-surface: #ffffff;
-  --color-bg: #f8f9fa;
+  --color-bg: white;
 
   /* Grays (aligned to design naming) */
   --color-gray-50: #f9fafb;
@@ -211,7 +211,6 @@ body {
 .hero-content p {
   font-size: 1.25rem;
   margin-bottom: 2rem;
-  opacity: 0.9;
 }
 
 .hero-buttons {

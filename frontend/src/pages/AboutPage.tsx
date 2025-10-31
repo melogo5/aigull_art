@@ -1,5 +1,6 @@
 import React from 'react'
 import HeadingTitle from '@/shared/ui/HeadingTitle'
+import bioImage from '@/shared/assets/images/bio.jpg'
 
 export const AboutPage: React.FC = () => {
   return (
@@ -10,13 +11,10 @@ export const AboutPage: React.FC = () => {
         paddingBottom: '4rem',
       }}
     >
-      {/* Page Header */}
-      <div style={{ paddingTop: '80px' }}>
-        <HeadingTitle title="Биография" className="container" />
-      </div>
+      <HeadingTitle title="Биография" className="container" />
 
       {/* Main Content - Two Column Layout */}
-      <div className="container" style={{ marginTop: '125px' }}>
+      <div className="container" style={{ marginTop: '80px' }}>
         <div
           style={{
             display: 'grid',
@@ -39,12 +37,13 @@ export const AboutPage: React.FC = () => {
                 overflow: 'hidden',
               }}
             >
-              {/* Placeholder for image - replace with actual image */}
-              <div
+              <img
+                src={bioImage}
+                alt="Биография художника"
                 style={{
-                  width: '88px',
-                  height: '88px',
-                  backgroundColor: 'var(--color-gray-200)',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
                 }}
               />
             </div>
@@ -166,7 +165,6 @@ export const AboutPage: React.FC = () => {
             <section
               style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
             >
-
               <p
                 style={{
                   fontFamily: 'var(--font-serif)',

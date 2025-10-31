@@ -98,11 +98,9 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
         <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
           {picture.name}
         </div>
-        <div
-          style={{ opacity: 0.9 }}
-        >{`${picture.width}×${picture.height} см`}</div>
-        <div style={{ opacity: 0.9, marginTop: 2 }}>{picture.material}</div>
-        <div style={{ opacity: 0.8, marginTop: 2 }}>{picture.year}</div>
+        <div>{`${picture.width}×${picture.height} см`}</div>
+        <div style={{ marginTop: 2 }}>{picture.material}</div>
+        <div style={{ marginTop: 2 }}>{picture.year}</div>
         {picture.available && (
           <button
             style={{

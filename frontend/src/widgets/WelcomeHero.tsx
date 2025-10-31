@@ -51,7 +51,7 @@ export const WelcomeHero: React.FC = () => {
         }}
       >
         <div style={{ color: '#fff', maxWidth: 760, textAlign: 'center' }}>
-          <p style={{ marginTop: 20, fontSize: '1.125rem', opacity: 0.92 }}>
+          <p style={{ marginTop: 20, fontSize: '2rem' }}>
             Пастельные истории на кончиках пальцев
           </p>
           <div

@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.3.7",
     "antd": "^5.20.0",
     "axios": "^1.6.2",
+    "dayjs": "^1.11.11",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",
     "react": "^18.2.0",
