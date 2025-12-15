@@ -9,57 +9,6 @@
 
 ## 🚀 Технологический стек
 
-### Frontend
-
-- React 18
-- TypeScript
-- Vite (современный сборщик)
-- React Router DOM
-- Axios для HTTP запросов
-- Архитектура FSD (Feature-Sliced Design)
-
-### Backend
-
-- Node.js
-- Express.js
-- TypeScript
-- MongoDB + Mongoose
-- JWT аутентификация
-- Bcrypt для хеширования паролей
-
-## 🔧 Настройка проекта
-
-### Git Hooks
-
-Проект использует Git hooks для обеспечения качества кода:
-
-- **pre-push**: Запускает сборку frontend перед push, предотвращая отправку сломанного кода
-
-**Автоматическая настройка:**
-```bash
-npm install  # Автоматически настроит hooks через postinstall
-```
-
-**Ручная настройка:**
-```bash
-npm run setup-hooks
-```
-
-или
-
-```bash
-# Linux/Mac
-bash scripts/setup-hooks.sh
-
-# Windows PowerShell
-.\scripts\setup-hooks.ps1
-```
-
-**Обход hooks (использовать осторожно!):**
-```bash
-git push --no-verify
-```
-
 ## 🔍 SEO оптимизация
 
 Проект включает файлы для оптимизации индексации поисковыми системами:
@@ -111,30 +60,6 @@ FRONTEND_URL=https://aigull-art.com  # Ваш production URL
 
 Тестируем деплой на стенд
 
-## 🐳 Быстрый старт с Docker
-
-Проект настроен для автоматического отслеживания изменений файлов:
-
-- **Backend**: Автоматическая перезагрузка при изменении файлов в `./backend/src/`
-- **Frontend**: Hot Module Replacement (HMR) при изменении файлов в `./frontend/src/`
-- **Конфигурационные файлы**: Автоматическая пересборка при изменении `package.json`
-
-**Переменные окружения для watch mode:**
-
-- `CHOKIDAR_USEPOLLING=true` - Включает polling для файловых событий
-- `WATCHPACK_POLLING=true` - Включает polling для Webpack/Vite
-
-#### Продакшн режим
-
-```bash
-# Собрать и запустить продакшен версию
-npm run docker:build
-npm run docker:up
-
-# Или через Makefile
-make prod
-```
-
 ### Архитектура Docker
 
 ```
@@ -143,44 +68,6 @@ make prod
 │   (Nginx)       │    │   (Express)     │    │   (Database)    │
 │   Port: 80      │◄──►│   Port: 5000    │◄──►│   Port: 27017   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
-```
-
-### Переменные окружения
-
-Создайте файл `.env` в корне проекта:
-
-```env
-NODE_ENV=production
-MONGO_URI=mongodb://admin:password123@mongodb:27017/aigull_art?authSource=admin
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
-CORS_ORIGIN=http://localhost
-FRONTEND_URL=https://aigull-art.com
-```
-
-## 🚀 Развертывание на VPS
-
-### Автоматическое развертывание
-
-1. **Настройте секреты в GitHub**:
-   - `VPS_HOST` - IP адрес вашего сервера
-   - `VPS_USERNAME` - имя пользователя
-   - `VPS_SSH_KEY` - приватный SSH ключ
-
-2. **На сервере выполните**:
-   ```bash
-   curl -fsSL https://raw.githubusercontent.com/your-username/aigull_art/main/deploy.sh | bash
-   ```
-
-### Ручное развертывание
-
-```bash
-# На VPS сервере
-git clone https://github.com/your-username/aigull_art.git
-cd aigull_art
-cp env.example .env
-# Отредактируйте .env файл
-sudo docker-compose up -d --build
 ```
 
 ### CI/CD Pipeline
