@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 import HeadingTitle from '@/shared/ui/HeadingTitle'
 import { PicturesView } from '@/widgets/PicturesView'
 import { Button } from 'antd'
@@ -11,7 +12,14 @@ const { setTitle, setValues, open } = modalController
 export const GalleryPage: React.FC = () => {
   const user = useUnit($user)
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <>
+      <Helmet>
+        <title>Галерея картин - Айгуль Утлякова</title>
+        <meta name="description" content="Галерея оригинальных пастельных картин Айгуль Утляковой. Просмотр и покупка произведений искусства." />
+        <meta property="og:title" content="Галерея картин - Айгуль Утлякова" />
+        <meta property="og:description" content="Галерея оригинальных пастельных картин" />
+      </Helmet>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
       <HeadingTitle title="Галерея" />
       {user && (
         <div
@@ -38,6 +46,7 @@ export const GalleryPage: React.FC = () => {
       </div>
       <CreatePictureModal />
     </div>
+    </>
   )
 }
 

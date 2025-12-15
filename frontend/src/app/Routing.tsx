@@ -5,6 +5,7 @@ import { LoginPage } from '@/pages/LoginPage'
 import { ProfilePage } from '@/pages/ProfilePage'
 import { ExhibitionsPage } from '@/pages/ExhibitionsPage'
 import { GalleryPage } from '@/pages/GalleryPage'
+import { PictureDetailPage } from '@/pages/PictureDetailPage'
 import { ContactsPage } from '@/pages/ContactsPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { Header } from '@/widgets/Header'
@@ -22,6 +23,7 @@ const Routing: React.FC = () => {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/exhibitions" element={<ExhibitionsPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/gallery/:id" element={<PictureDetailPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/bio" element={<AboutPage />} />
           </Routes>

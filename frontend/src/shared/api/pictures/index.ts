@@ -6,6 +6,10 @@ export const picturesApi = {
     const { data } = await api.get('/pictures')
     return data.data as Picture[]
   },
+  async getById(id: string): Promise<Picture> {
+    const { data } = await api.get(`/pictures/${id}`)
+    return data.data as Picture
+  },
   async uploadImage(file: File): Promise<string> {
     const form = new FormData()
     form.append('image', file)

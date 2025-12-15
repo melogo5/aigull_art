@@ -1,10 +1,18 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 import HeadingTitle from '@/shared/ui/HeadingTitle'
 import bioImage from '@/shared/assets/images/bio.jpg'
 
 export const AboutPage: React.FC = () => {
   return (
-    <div
+    <>
+      <Helmet>
+        <title>Биография - Айгуль Утлякова | Художник пастелист</title>
+        <meta name="description" content="Биография художника-пастелиста Айгуль Утляковой. Творческий путь, образование, художественная философия." />
+        <meta property="og:title" content="Биография - Айгуль Утлякова" />
+        <meta property="og:description" content="Художник-пастелист, член национального союза пастелистов России с 2013 года" />
+      </Helmet>
+      <div
       style={{
         backgroundColor: 'var(--color-surface)',
         minHeight: '100%',
@@ -301,6 +309,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

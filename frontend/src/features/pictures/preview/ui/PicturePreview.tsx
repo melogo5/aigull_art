@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Picture } from '@/shared/api/pictures'
 import { getFullImageUrl } from '@/shared/utils/urlUtils'
 import { Button, Popconfirm, message } from 'antd'
+import { EyeOutlined } from '@ant-design/icons'
 import { useUnit } from 'effector-react'
 import { fetchPicturesFx } from '@/entities/picture/model/picturesStore'
 import { picturesApi } from '@/shared/api/pictures'
@@ -10,6 +12,7 @@ import { $user } from '@/shared/model/auth'
 
 type Props = {
   picture: Picture
+  onCardClick?: () => void
 }
 
 const cardStyle: React.CSSProperties = {
@@ -37,14 +40,36 @@ const infoStyleBase: React.CSSProperties = {
 
 const { setTitle, setValues, open } = modalController
 
-export const PicturePreview: React.FC<Props> = ({ picture }) => {
+export const PicturePreview: React.FC<Props> = ({ picture, onCardClick }) => {
   const [hovered, setHovered] = useState(false)
   const user = useUnit($user)
+  const navigate = useNavigate()
 
   const infoStyle = {
     ...infoStyleBase,
     opacity: hovered ? 1 : 0,
   } as React.CSSProperties
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger if clicking on buttons or admin controls
+    const target = e.target as HTMLElement
+    if (
+      target.closest('button') ||
+      target.closest('.ant-btn') ||
+      target.closest('.ant-popconfirm')
+    ) {
+      return
+    }
+    if (onCardClick) {
+      onCardClick()
+    }
+  }
+
+  const onViewClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate(`/gallery/${picture._id}`)
+  }
 
   const onEditClick = () => {
     setTitle('Редактировать картину')
@@ -77,14 +102,16 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
 
   return (
     <div
-      style={cardStyle}
+      style={{ ...cardStyle, cursor: onCardClick ? 'pointer' : 'default' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handleCardClick}
     >
       {picture.imgUrl && (
         <img
           src={getFullImageUrl(picture.imgUrl)}
-          alt={picture.name}
+          alt={`${picture.name} by Айгуль Утлякова, ${picture.year}, ${picture.material}, ${picture.width}×${picture.height} cm`}
+          title={`Айгуль Утлякова. "${picture.name}"`}
           style={{
             position: 'absolute',
             inset: 0,
@@ -116,18 +143,53 @@ export const PicturePreview: React.FC<Props> = ({ picture }) => {
             Доступна для покупки
           </button>
         )}
+        <Button
+          type="primary"
+          icon={<EyeOutlined />}
+          onClick={onViewClick}
+          style={{
+            marginTop: 14,
+            background: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'rgba(255, 255, 255, 0.3)',
+            color: 'white',
+          }}
+        >
+          Просмотр
+        </Button>
         {user && (
-          <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-            <Button size="small" onClick={onEditClick}>
+          <div
+            style={{ display: 'flex', gap: 8, marginTop: 12 }}
+            onClick={e => e.stopPropagation()}
+          >
+            <Button
+              size="small"
+              onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
+                onEditClick()
+              }}
+            >
               Редактировать
             </Button>
             <Popconfirm
               title="Удалить картину?"
               okText="Удалить"
               cancelText="Отмена"
-              onConfirm={onDelete}
+              onConfirm={e => {
+                if (e) {
+                  e.stopPropagation()
+                }
+                onDelete()
+              }}
             >
-              <Button size="small" danger>
+              <Button
+                size="small"
+                danger
+                onClick={e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }}
+              >
                 Удалить
               </Button>
             </Popconfirm>

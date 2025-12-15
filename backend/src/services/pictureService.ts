@@ -62,6 +62,10 @@ export class PictureService {
     return picture;
   }
 
+  static async getPictureById(id: string): Promise<IPicture | null> {
+    return await Picture.findById(id);
+  }
+
   static async deletePicture(id: string): Promise<IPicture | null> {
     return await Picture.findByIdAndDelete(id);
   }

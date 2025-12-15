@@ -21,6 +21,7 @@ console.log('current:', process.cwd());
 const upload = multer({ storage });
 
 router.get('/', pictureController.getPictures);
+router.get('/:id', pictureController.getPictureById);
 
 router.post('/addPicture', auth, pictureController.addPicture);
 router.delete('/deletePicture/:id', auth, pictureController.deletePicture);
