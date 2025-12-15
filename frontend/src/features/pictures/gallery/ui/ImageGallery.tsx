@@ -21,7 +21,6 @@ export const ImageGallery: React.FC<Props> = ({ pictures, open, onClose }) => {
       style={{
         padding: 0,
       }}
-      styl
       footer={null}
       closeIcon={
         <CloseOutlined style={{ color: 'white', fontSize: 24, zIndex: 1001 }} />
