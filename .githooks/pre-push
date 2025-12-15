@@ -1,5 +1,25 @@
 #!/bin/sh
 
+echo "Running backend TypeScript build before push..."
+
+# Переходим в корень репозитория (папка, где лежит этот скрипт -> ..)
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR/.." || exit 1
+
+cd backend || exit 1
+
+npm run build
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo "Backend build failed. Push aborted."
+  exit $RESULT
+fi
+
+exit 0
+
+#!/bin/sh
+
 # Pre-push hook to run frontend build
 # This ensures the TypeScript compilation and Vite build succeed before pushing
 

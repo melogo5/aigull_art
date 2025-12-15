@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
-import Picture from '../models/Picture';
+import Picture, { IPicture } from '../models/Picture';
 import connectDB from '../config/db';
 import { parse } from 'csv-parse/sync';
 
@@ -54,7 +54,7 @@ export async function syncPaintingsFromCsv(): Promise<void> {
     trim: true,
   }) as CsvRecord[];
 
-  const documents: Parameters<typeof Picture.insertMany>[0] = [];
+  const documents: Array<Partial<IPicture>> = [];
 
   for (const record of records) {
     const imageField = record['Изображение для сайта'];
