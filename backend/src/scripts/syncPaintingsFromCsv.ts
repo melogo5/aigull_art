@@ -54,7 +54,7 @@ export async function syncPaintingsFromCsv(): Promise<void> {
     trim: true,
   }) as CsvRecord[];
 
-  const seenCodes = new Set<string>();
+  const documents: Parameters<typeof Picture.insertMany>[0] = [];
 
   for (const record of records) {
     const imageField = record['Изображение для сайта'];
@@ -69,8 +69,6 @@ export async function syncPaintingsFromCsv(): Promise<void> {
       continue;
     }
 
-    seenCodes.add(code);
-
     const year = parseInt(record['Год'], 10);
     const title = record.Page?.trim() || code;
     const base = record['Основа работы']?.trim() || '';
@@ -83,37 +81,27 @@ export async function syncPaintingsFromCsv(): Promise<void> {
     // Картинки будут лежать в /uploads/paintings/<fileName>
     const imgUrl = `/uploads/paintings/${fileName}`;
 
-    await Picture.findOneAndUpdate(
-      { code },
-      {
-        code,
-        name: title,
-        description: '',
-        year: Number.isFinite(year) ? year : new Date().getFullYear(),
-        available: true,
-        width,
-        height,
-        material,
-        imgUrl,
-      },
-      {
-        upsert: true,
-        new: true,
-        setDefaultsOnInsert: true,
-      }
-    );
-  }
-
-  // Удаляем записи, которые ранее были синхронизированы из CSV (имеют code),
-  // но теперь отсутствуют в CSV. Записи без code не трогаем.
-  if (seenCodes.size > 0) {
-    await Picture.deleteMany({
-      code: { $exists: true, $nin: Array.from(seenCodes) },
+    documents.push({
+      code,
+      name: title,
+      description: '',
+      year: Number.isFinite(year) ? year : new Date().getFullYear(),
+      available: true,
+      width,
+      height,
+      material,
+      imgUrl,
     });
   }
 
+  // Полностью очищаем коллекцию и пересоздаём её из CSV
+  await Picture.deleteMany({});
+  if (documents.length > 0) {
+    await Picture.insertMany(documents);
+  }
+
   console.log(
-    `Sync from CSV completed. Processed ${seenCodes.size} unique codes.`
+    `Sync from CSV completed. Inserted ${documents.length} documents.`
   );
 }
 
@@ -133,5 +121,3 @@ if (require.main === module) {
     }
   })();
 }
-
-
