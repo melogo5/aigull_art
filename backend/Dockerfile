@@ -34,5 +34,5 @@ RUN chown -R nodejs:nodejs /app
 RUN chmod 755 /app/uploads
 USER nodejs
 
-# Запускаем приложение
-CMD ["npm", "start"]
+# Запускаем приложение: копируем картинки и синхронизируем базу из CSV перед стартом
+CMD ["sh", "-c", "mkdir -p /app/uploads/paintings && cp -r /app/src/paintings/* /app/uploads/paintings/ 2>/dev/null || true && node dist/scripts/syncPaintingsFromCsv.js && npm start"]

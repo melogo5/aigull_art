@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "sync:paintings": "ts-node src/scripts/syncPaintingsFromCsv.ts"
   },
   "keywords": [
     "express",
@@ -20,6 +21,7 @@
     "@types/cookie-parser": "^1.4.10",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
+    "csv-parse": "^5.5.6",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",

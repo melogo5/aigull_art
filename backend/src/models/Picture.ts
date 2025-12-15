@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IPicture extends Document {
+  code?: string;
   name: string;
   description: string;
   year: number;
@@ -15,6 +16,7 @@ export interface IPicture extends Document {
 
 const pictureSchema = new Schema<IPicture>(
   {
+    code: { type: String, trim: true, index: true },
     name: { type: String, required: true, trim: true },
     description: { type: String, default: '', trim: true },
     year: { type: Number, required: true },
